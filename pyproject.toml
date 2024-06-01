@@ -85,6 +85,10 @@ testpaths = [
   "src",
 ]
 
+[tool.pytest-watcher]
+now = true
+ignore_patterns = ["*.py.*.py"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
