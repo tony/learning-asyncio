@@ -31,7 +31,6 @@ typing-extensions = { version = "*" }
 strict = true
 files = [
   "src/",
-  "tests/",
 ]
 
 [tool.ruff]
@@ -81,7 +80,6 @@ convention = "numpy"
 addopts = "--tb=short --no-header --showlocals --doctest-modules"
 doctest_optionflags = "ELLIPSIS NORMALIZE_WHITESPACE"
 testpaths = [
-  "tests",
   "src",
 ]
 
