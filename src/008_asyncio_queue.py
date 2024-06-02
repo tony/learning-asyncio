@@ -3,7 +3,7 @@
 import asyncio
 
 
-async def producer(queue: asyncio.Queue, n: int) -> None:
+async def producer(queue: asyncio.Queue[int], n: int) -> None:
     """
     Asynchronously produces items and puts them in the queue.
 
@@ -30,7 +30,7 @@ async def producer(queue: asyncio.Queue, n: int) -> None:
         print(f"Produced {i}")
 
 
-async def consumer(queue: asyncio.Queue, n: int) -> None:
+async def consumer(queue: asyncio.Queue[int], n: int) -> None:
     """
     Asynchronously consumes items from the queue.
 
@@ -72,7 +72,7 @@ async def main() -> None:
     Consumed 1
     Consumed 2
     """
-    queue = asyncio.Queue()
+    queue: asyncio.Queue[int] = asyncio.Queue()
     n = 3
     producer_task = asyncio.create_task(producer(queue, n))
     consumer_task = asyncio.create_task(consumer(queue, n))
