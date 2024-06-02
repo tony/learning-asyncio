@@ -38,7 +38,7 @@ async def main() -> None:
     event = asyncio.Event()
     waiter_task = asyncio.create_task(waiter(event))
 
-    await asyncio.sleep(1)  # Simulate a delay
+    await asyncio.sleep(0.001)  # Simulate a delay
     print("Event is set!")
     event.set()
 
