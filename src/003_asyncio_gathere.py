@@ -22,7 +22,7 @@ async def greet(name: str) -> str:
     >>> asyncio.run(greet("Alice"))
     'Hello, Alice!'
     """
-    await asyncio.sleep(0.1)  # Simulate IO-bound task
+    await asyncio.sleep(0.001)  # Simulate IO-bound task
     return f"Hello, {name}!"
 
 
