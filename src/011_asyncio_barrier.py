@@ -17,9 +17,9 @@ async def worker(barrier: asyncio.Barrier, worker_id: int) -> None:
     Examples
     --------
     >>> asyncio.run(main())
-    Worker 0 waiting at the barrier.
-    Worker 1 waiting at the barrier.
-    Worker 2 waiting at the barrier.
+    Worker ... waiting at the barrier.
+    Worker ... waiting at the barrier.
+    Worker ... waiting at the barrier.
     All workers have reached the barrier.
     """
     print(f"Worker {worker_id} waiting at the barrier.")
@@ -34,9 +34,9 @@ async def main() -> None:
     Examples
     --------
     >>> asyncio.run(main())
-    Worker 0 waiting at the barrier.
-    Worker 1 waiting at the barrier.
-    Worker 2 waiting at the barrier.
+    Worker ... waiting at the barrier.
+    Worker ... waiting at the barrier.
+    Worker ... waiting at the barrier.
     All workers have reached the barrier.
     """
     barrier = asyncio.Barrier(3)
