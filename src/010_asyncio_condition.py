@@ -31,7 +31,7 @@ async def main() -> None:
 
     async def incrementer() -> None:
         for _ in range(3):
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.1)
             await shared_state.increment()
 
     async def waiter() -> None:
