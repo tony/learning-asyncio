@@ -21,6 +21,8 @@ async def handle_client(
     Examples
     --------
     >>> asyncio.run(main())
+    Serving on ('127.0.0.1', 8889)
+    Shutting down the server
     """
     data = await reader.read(100)
     message = data.decode()
