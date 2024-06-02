@@ -37,19 +37,30 @@ async def handle_client(
 
 async def main() -> None:
     """
-    Asynchronously starts a server to handle client connections.
+    Asynchronously starts a server to handle client connections and shuts it down after a brief period.
 
     Examples
     --------
     >>> asyncio.run(main())
+    Serving on ('127.0.0.1', 8889)
+    Shutting down the server
     """
-    server = await asyncio.start_server(handle_client, "127.0.0.1", 8881)
+    server = await asyncio.start_server(handle_client, "127.0.0.1", 8889)
 
     addrs = ", ".join(str(sock.getsockname()) for sock in server.sockets)
     print(f"Serving on {addrs}")
 
+    async def shutdown():
+        await asyncio.sleep(0.001)  # Shutdown after a brief period
+        server.close()
+        await server.wait_closed()
+        print("Shutting down the server")
+
     async with server:
-        await server.serve_forever()
+		try:
+			await asyncio.gather(server.serve_forever(), shutdown())
+		except asyncio.CancelledError:
+			pass
 
 
 if __name__ == "__main__":
