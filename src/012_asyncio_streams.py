@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import asyncio
+import contextlib
 
 
 async def handle_client(
@@ -50,17 +51,15 @@ async def main() -> None:
     addrs = ", ".join(str(sock.getsockname()) for sock in server.sockets)
     print(f"Serving on {addrs}")
 
-    async def shutdown():
+    async def shutdown() -> None:
         await asyncio.sleep(0.001)  # Shutdown after a brief period
         server.close()
         await server.wait_closed()
         print("Shutting down the server")
 
     async with server:
-		try:
-			await asyncio.gather(server.serve_forever(), shutdown())
-		except asyncio.CancelledError:
-			pass
+        with contextlib.suppress(asyncio.CancelledError):
+            await asyncio.gather(server.serve_forever(), shutdown())
 
 
 if __name__ == "__main__":
