@@ -23,7 +23,7 @@ async def task_with_timeout() -> str:
     Task timed out
     """
     try:
-        await asyncio.sleep(2)
+        await asyncio.sleep(0.002)
         return "Task completed"
     except TimeoutError:
         return "Task timed out"
@@ -46,7 +46,7 @@ async def main(timeout: bool = False) -> None:
     """
     if timeout:
         try:
-            result = await asyncio.wait_for(task_with_timeout(), timeout=1.0)
+            result = await asyncio.wait_for(task_with_timeout(), timeout=0.001)
         except TimeoutError:
             result = "Task timed out"
     else:
