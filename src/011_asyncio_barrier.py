@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+"""
+This example demonstrates the use of asyncio.Barrier to synchronize a fixed number of
+coroutines.
+"""
 
 import asyncio
 
 
 async def worker(barrier: asyncio.Barrier, worker_id: int) -> None:
-    """
-    Asynchronously waits at a barrier.
+    """Asynchronously waits at a barrier.
 
     Parameters
     ----------
@@ -31,8 +34,7 @@ async def worker(barrier: asyncio.Barrier, worker_id: int) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously synchronizes coroutines at a barrier.
+    """Asynchronously synchronizes coroutines at a barrier.
 
     Examples
     --------

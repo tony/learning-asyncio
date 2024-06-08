@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+"""This example demonstrates how to use asyncio to apply timeouts to tasks.
+
+It covers using asyncio.wait_for to set time limits on coroutines.
+"""
 
 import asyncio
 
 
 async def task_with_timeout() -> str:
-    """
-    Asynchronously performs a task with a timeout.
+    """Asynchronously performs a task with a timeout.
 
     Returns
     -------
@@ -27,8 +30,7 @@ async def task_with_timeout() -> str:
 
 
 async def main(timeout: bool = False) -> None:
-    """
-    Asynchronously runs a task with or without a timeout.
+    """Asynchronously runs a task with or without a timeout.
 
     Parameters
     ----------

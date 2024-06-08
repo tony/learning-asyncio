@@ -16,8 +16,7 @@ class SharedResource:
         self.condition = asyncio.Condition()
 
     async def produce(self, item: int) -> None:
-        """
-        Asynchronously adds an item to the shared resource.
+        """Asynchronously adds an item to the shared resource.
 
         Parameters
         ----------
@@ -38,8 +37,7 @@ class SharedResource:
             self.condition.notify_all()
 
     async def consume(self) -> int:
-        """
-        Asynchronously consumes an item from the shared resource.
+        """Asynchronously consumes an item from the shared resource.
 
         Returns
         -------
@@ -63,8 +61,7 @@ class SharedResource:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs producer and consumer coroutines.
+    """Asynchronously runs producer and consumer coroutines.
 
     Examples
     --------

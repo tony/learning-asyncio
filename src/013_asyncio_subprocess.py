@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+"""This example demonstrates how to use asyncio to run subprocesses.
+
+It covers creating subprocesses and reading their output asynchronously.
+"""
 
 import asyncio
 
 
 async def run_command(command: str) -> str:
-    """
-    Asynchronously runs a command in a subprocess.
+    """Asynchronously runs a command in a subprocess.
 
     Parameters
     ----------
@@ -42,8 +45,7 @@ async def run_command(command: str) -> str:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs a sample command in a subprocess and prints the output.
+    """Asynchronously runs a sample command in a subprocess and prints the output.
 
     Examples
     --------

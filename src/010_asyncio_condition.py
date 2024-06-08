@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+"""
+This example demonstrates how to use asyncio.Condition for implementing
+a producer-consumer pattern.
+
+It covers using conditions to synchronize the producer and consumer coroutines.
+"""
 
 import asyncio
 
@@ -19,8 +25,7 @@ class SharedState:
 
 
 async def main() -> None:
-    """
-    Asynchronously uses a condition to synchronize coroutines.
+    """Asynchronously uses a condition to synchronize coroutines.
 
     Examples
     --------

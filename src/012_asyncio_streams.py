@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""This example demonstrates the use of asyncio streams for network communication.
+
+It covers creating a server, handling client connections, and performing read and write
+operationv asynchronously.
+"""
 
 import asyncio
 import contextlib
@@ -40,7 +45,8 @@ async def handle_client(
 
 async def main() -> None:
     """
-    Asynchronously starts a server to handle client connections and shuts it down after a brief period.
+    Asynchronously starts a server to handle client connections and shuts it down after
+    a brief period.
 
     Examples
     --------
