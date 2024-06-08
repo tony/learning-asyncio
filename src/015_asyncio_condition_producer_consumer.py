@@ -76,12 +76,12 @@ async def main() -> None:
     async def producer() -> None:
         for i in range(1, 3):
             await resource.produce(i)
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.001)
 
     async def consumer() -> None:
         for _ in range(2):
             await resource.consume()
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.001)
 
     await asyncio.gather(producer(), consumer())
 
