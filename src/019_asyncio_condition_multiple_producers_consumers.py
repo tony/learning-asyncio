@@ -11,10 +11,10 @@ import asyncio
 
 class SharedQueue:
     def __init__(self) -> None:
-        self.queue: list[int | None] = []
+        self.queue: list[str | None] = []
         self.condition = asyncio.Condition()
 
-    async def produce(self, item: int) -> None:
+    async def produce(self, item: str) -> None:
         """Asynchronously adds an item to the shared queue.
 
         Parameters
@@ -38,9 +38,8 @@ class SharedQueue:
             print(f"Produced {item}")
             self.condition.notify_all()
 
-    async def consume(self) -> int:
-        """
-        Asynchronously consumes an item from the shared queue.
+    async def consume(self) -> str | None:
+        """Asynchronously consumes an item from the shared queue.
 
         Returns
         -------
