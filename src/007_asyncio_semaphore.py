@@ -4,8 +4,7 @@ import asyncio
 
 
 async def limited_worker(semaphore: asyncio.Semaphore, worker_id: int) -> None:
-    """
-    Asynchronously performs a task with limited concurrent access.
+    """Asynchronously performs a task with limited concurrent access.
 
     Parameters
     ----------
@@ -31,8 +30,7 @@ async def limited_worker(semaphore: asyncio.Semaphore, worker_id: int) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs multiple workers with limited concurrent access.
+    """Asynchronously runs multiple workers with limited concurrent access.
 
     Examples
     --------

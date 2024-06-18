@@ -4,8 +4,7 @@ import asyncio
 
 
 async def waiter(event: asyncio.Event) -> None:
-    """
-    Asynchronously waits for an event to be set.
+    """Asynchronously waits for an event to be set.
 
     Parameters
     ----------
@@ -25,8 +24,7 @@ async def waiter(event: asyncio.Event) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously sets and waits for an event.
+    """Asynchronously sets and waits for an event.
 
     Examples
     --------

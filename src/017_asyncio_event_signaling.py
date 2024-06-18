@@ -10,8 +10,7 @@ import asyncio
 
 
 async def setter(event: asyncio.Event) -> None:
-    """
-    Asynchronously sets an event after a delay.
+    """Asynchronously sets an event after a delay.
 
     Parameters
     ----------
@@ -30,8 +29,7 @@ async def setter(event: asyncio.Event) -> None:
 
 
 async def waiter(event: asyncio.Event) -> None:
-    """
-    Asynchronously waits for an event to be set.
+    """Asynchronously waits for an event to be set.
 
     Parameters
     ----------
@@ -50,8 +48,7 @@ async def waiter(event: asyncio.Event) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously sets and waits for an event.
+    """Asynchronously sets and waits for an event.
 
     Examples
     --------

@@ -16,8 +16,7 @@ class SharedResource:
 
 
 async def worker(resource: SharedResource, increments: int) -> None:
-    """
-    Asynchronously increments a shared resource.
+    """Asynchronously increments a shared resource.
 
     Parameters
     ----------
@@ -38,8 +37,7 @@ async def worker(resource: SharedResource, increments: int) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs multiple workers to increment a shared resource.
+    """Asynchronously runs multiple workers to increment a shared resource.
 
     Examples
     --------

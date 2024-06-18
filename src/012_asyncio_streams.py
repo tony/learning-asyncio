@@ -13,8 +13,7 @@ async def handle_client(
     reader: asyncio.StreamReader,
     writer: asyncio.StreamWriter,
 ) -> None:
-    """
-    Asynchronously handles a client connection.
+    """Asynchronously handles a client connection.
 
     Parameters
     ----------
@@ -44,9 +43,7 @@ async def handle_client(
 
 
 async def main() -> None:
-    """
-    Asynchronously starts a server to handle client connections and shuts it down after
-    a brief period.
+    """Asynchronously starts a server to handle client connections and shuts it down after a brief period.
 
     Examples
     --------

@@ -11,8 +11,7 @@ import random
 
 
 async def producer(queue: asyncio.Queue[str | None], n: int) -> None:
-    """
-    Asynchronously produces items and puts them in the queue.
+    """Asynchronously produces items and puts them in the queue.
 
     Parameters
     ----------
@@ -38,8 +37,7 @@ async def producer(queue: asyncio.Queue[str | None], n: int) -> None:
 
 
 async def consumer(queue: asyncio.Queue[str | None], n: int) -> None:
-    """
-    Asynchronously consumes items from the queue.
+    """Asynchronously consumes items from the queue.
 
     Parameters
     ----------
@@ -67,8 +65,7 @@ async def consumer(queue: asyncio.Queue[str | None], n: int) -> None:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs multiple producers and consumers.
+    """Asynchronously runs multiple producers and consumers.
 
     Examples
     --------

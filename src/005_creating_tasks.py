@@ -4,8 +4,7 @@ import asyncio
 
 
 async def greet(name: str) -> str:
-    """
-    Asynchronously returns a personalized greeting string.
+    """Asynchronously returns a personalized greeting string.
 
     Parameters
     ----------
@@ -27,8 +26,7 @@ async def greet(name: str) -> str:
 
 
 async def main() -> None:
-    """
-    Asynchronously creates and manages multiple tasks.
+    """Asynchronously creates and manages multiple tasks.
 
     Examples
     --------

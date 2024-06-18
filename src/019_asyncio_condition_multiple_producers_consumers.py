@@ -15,8 +15,7 @@ class SharedQueue:
         self.condition = asyncio.Condition()
 
     async def produce(self, item: int) -> None:
-        """
-        Asynchronously adds an item to the shared queue.
+        """Asynchronously adds an item to the shared queue.
 
         Parameters
         ----------
@@ -68,8 +67,7 @@ class SharedQueue:
 
 
 async def main() -> None:
-    """
-    Asynchronously runs multiple producers and consumers using a shared queue.
+    """Asynchronously runs multiple producers and consumers using a shared queue.
 
     Examples
     --------

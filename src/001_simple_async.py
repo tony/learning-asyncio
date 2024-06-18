@@ -4,8 +4,7 @@ import asyncio
 
 
 async def hello_world() -> str:
-    """
-    Asynchronously returns a greeting string.
+    """Asynchronously returns a greeting string.
 
     Returns
     -------
