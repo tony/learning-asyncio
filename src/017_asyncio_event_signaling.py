@@ -24,7 +24,7 @@ async def setter(event: asyncio.Event) -> None:
     Waiting for the event to be set...
     Event has been set.
     """
-    await asyncio.sleep(1)
+    await asyncio.sleep(0.001)
     event.set()
     print("Event has been set.")
 

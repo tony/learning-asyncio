@@ -24,16 +24,16 @@ async def limited_worker(semaphore: asyncio.Semaphore, worker_id: int) -> None:
     Examples
     --------
     >>> asyncio.run(main())
-    Worker 0 is working.
-    Worker 1 is working.
-    Worker 2 is working.
-    Worker 0 is done.
-    Worker 1 is done.
-    Worker 2 is done.
+    Worker ... is working.
+    Worker ... is working.
+    Worker ... is ....
+    Worker ... is ....
+    Worker ... is ....
+    Worker ... is ....
     """
     async with semaphore:
         print(f"Worker {worker_id} is working.")
-        await asyncio.sleep(random.uniform(0.1, 0.5))
+        await asyncio.sleep(random.uniform(0.001, 0.005))
         print(f"Worker {worker_id} is done.")
 
 
@@ -44,12 +44,12 @@ async def main() -> None:
     Examples
     --------
     >>> asyncio.run(main())
-    Worker 0 is working.
-    Worker 1 is working.
-    Worker 2 is working.
-    Worker 0 is done.
-    Worker 1 is done.
-    Worker 2 is done.
+    Worker ... is working.
+    Worker ... is working.
+    Worker ... is ....
+    Worker ... is ....
+    Worker ... is ....
+    Worker ... is ....
     """
     semaphore = asyncio.Semaphore(2)
     tasks = [asyncio.create_task(limited_worker(semaphore, i)) for i in range(3)]
