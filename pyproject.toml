@@ -1,31 +1,25 @@
-[tool.poetry]
+[project]
 name = "learning-asyncio"
 version = "0.1.0"
 description = ""
-authors = ["Tony Narlock <tony@git-pull.com>"]
-license = "All Rights Reseerved"
+license = { text = "All Rights Reserved" }
 readme = "README.md"
+requires-python = ">=3.9,<4.0"
+authors = [
+  {name = "Tony Narlock", email = "tony@git-pull.com"}
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-
-[tool.poetry.group.test.dependencies]
-### Testing ###
-pytest = "~7"
-pytest-rerunfailures = "*"
-pytest-watcher = "*"
-
-[tool.poetry.group.coverage.dependencies]
-### Coverage ###
-codecov = "*"
-coverage = "*"
-pytest-cov = "*"
-
-[tool.poetry.group.lint.dependencies]
-### Lint ###
-ruff = "*"
-mypy = "*"
-typing-extensions = { version = "*" }
+[tool.uv]
+dev-dependencies = [
+  ### Testing ###
+  "pytest",
+  "pytest-rerunfailures",
+  "pytest-watcher",
+    # Lint
+  "ruff",
+  "mypy",
+  "typing-extensions",
+]
 
 [tool.mypy]
 strict = true
@@ -86,7 +80,3 @@ testpaths = [
 [tool.pytest-watcher]
 now = true
 ignore_patterns = ["*.py.*.py"]
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
