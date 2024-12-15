@@ -3,28 +3,43 @@
 [Lesson Title].
 
 [Context]
-- Explain what this lesson is teaching: e.g., This lesson demonstrates how to use asyncio.Lock to ensure safe concurrent access.
-- State the prerequisites: e.g., Familiarity with basic asyncio concepts is required (async/await, event loop).
-- Provide links or references: e.g., Official docs: https://docs.python.org/3/library/asyncio.html
+- State the concept: e.g., "This lesson demonstrates how to use asyncio.Lock to ensure safe concurrent access."
+- Prerequisites: Familiarity with `asyncio.run()`, basic async/await syntax, and the event loop model.
+- References:
+  - Official docs: https://docs.python.org/3/library/asyncio.html
+  - If relevant, link to previous lessons or external docs on advanced usage.
 
 [Summary]
-- In a few lines, summarize what the code does and what learners will take away from it.
+- Summarize in a few lines what this lesson covers and what learners will take away.
+- For example: "By the end of this lesson, you'll understand how to lock shared resources in async code,
+  preventing race conditions and ensuring data integrity under concurrency."
 
 Doctests:
-- Provide doctest examples below that can be run with `pytest --doctest-modules` or `python -m doctest -v thisfile.py`.
-- Use ellipses in doctests if necessary (e.g. `# doctest: +ELLIPSIS`) to allow flexibility in output if concurrency makes order unpredictable.
-- Keep sleeps minimal and deterministic if possible, or rely on ellipses in doctest output where concurrent output order isn't guaranteed.
+- Include doctests demonstrating usage.
+- Use ellipses (e.g., `# doctest: +ELLIPSIS`) if concurrency or timing introduces non-determinism.
+- Keep sleeps minimal and, if needed, rely on ellipses to handle output variance.
+- Ensure that running `pytest --doctest-modules` or `python -m doctest -v thisfile.py` succeeds.
+- Each example should be self-contained and instructive, focusing on the core concept.
+
+Type Hints & Mypy:
+- Consider adding type hints to functions to improve clarity and help with static analysis.
+- For instance, specify return types (e.g., `async def demonstrate_concept() -> str:`).
+- If tasks or external constructs are used, consider using `Awaitable` or `Callable` where appropriate.
+
+Execution:
+- Running `python thisfile.py` should execute `main()` and demonstrate the concept.
+- Keep the example minimal and self-contained.
 """
 
 import asyncio
 
 # INSTRUCTIONS/NOTES:
-# 1. Use only standard library asyncio and built-ins.
-# 2. Provide a simple async function or class that demonstrates the lesson concept.
-# 3. Include doctests that run `asyncio.run(main())` or similar to show expected behavior.
-# 4. Ensure the code can be directly executed: `python thisfile.py`.
-# 5. Keep examples minimal but illustrative, focusing on the concept taught in this lesson.
-# 6. Comment on tricky parts of the code to help learners understand the "why" behind decisions.
+# 1. Use only standard library asyncio and built-ins (no external dependencies).
+# 2. Show a simple asynchronous function or class that demonstrates the lesson's concept clearly.
+# 3. Include doctests that show expected output.
+# 4. Focus on clarity and educational value: explain tricky parts in comments.
+# 5. Ensure that output is stable enough for doctests, or use ellipses if order can vary.
+# 6. Consider adding a small delay (like 0.001 seconds) to simulate async behavior without causing long test runs.
 
 
 async def demonstrate_concept() -> str:
@@ -32,12 +47,17 @@ async def demonstrate_concept() -> str:
     [Function Purpose]
     Explain what this function does and why it is important for this lesson.
 
+    For example:
+    This function simulates a short async operation (like an I/O wait)
+    and returns a predetermined result. It illustrates how an async function
+    can await a coroutine and produce a value.
+
     Examples
     --------
     >>> asyncio.run(demonstrate_concept())
     'Expected Result'
     """
-    # For demonstration, we simulate a short sleep.
+    # Simulate a brief async operation
     await asyncio.sleep(0.001)
     return "Expected Result"
 
@@ -46,9 +66,9 @@ async def main() -> None:
     """
     Main entrypoint for this lesson.
 
-    - Orchestrates the demonstration.
-    - Prints or returns results to be verified by doctests.
-    - Optionally, show multiple usage scenarios here.
+    This orchestrates the demonstration by calling the core function and printing the result.
+    In more complex lessons, main might handle multiple tasks, show concurrency patterns,
+    or illustrate error handling.
 
     Examples
     --------
@@ -60,5 +80,5 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    # Running the main coroutine to allow standalone execution.
+    # Running the main coroutine so the file is executable directly.
     asyncio.run(main())
