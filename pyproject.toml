@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 license = { text = "All Rights Reserved" }
 readme = "README.md"
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.12,<4.0"
 authors = [
   {name = "Tony Narlock", email = "tony@git-pull.com"}
 ]
@@ -23,12 +23,13 @@ dev-dependencies = [
 
 [tool.mypy]
 strict = true
+python_version = "3.12"
 files = [
   "src/",
 ]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py312"
 
 [tool.lint]
 select = [
