@@ -70,6 +70,9 @@ convention = "numpy"
 
 [tool.ruff.lint.per-file-ignores]
 "*/__init__.py" = ["F401"]
+"*.py" = [
+  "T201"  # print() statements are used for doctest and normal outputs
+]
 
 [tool.pytest.ini_options]
 addopts = "--tb=short --no-header --showlocals --doctest-modules"
