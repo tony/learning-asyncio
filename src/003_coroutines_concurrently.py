@@ -7,7 +7,8 @@ Context
 This lesson introduces running multiple coroutines concurrently using `asyncio.gather()`.
 While async code does not run tasks in parallel on multiple CPU cores, it can efficiently
 interleave I/O-bound operations. By concurrently waiting for multiple asynchronous tasks,
-your code can handle more tasks in the same amount of time compared to running them sequentially.
+your code can handle more tasks in the same amount of time compared to running them
+sequentially.
 
 Summary
 -------
