@@ -79,13 +79,17 @@ async def measure_runtime(coro: Callable[[], Awaitable[Any]]) -> float:
 
 
 async def cpu_bound_task(n: int) -> int:
-    """A CPU-bound simulation (inefficient fibonacci), demonstrating why to offload CPU tasks."""
+    """A CPU-bound simulation (inefficient fibonacci).
+
+    Demonstrates why to offload CPU tasks.
+    """
     if n < 2:
         return n
     return await asyncio.to_thread(fib, n)
 
 
 def fib(n: int) -> int:
+    """Calculate Fibonacci number (naive implementation for demonstration)."""
     # Naive Fibonacci for demonstration only.
     return n if n < 2 else fib(n - 1) + fib(n - 2)
 
@@ -109,8 +113,7 @@ async def limited_concurrency_example(
 
 
 async def main() -> None:
-    """
-    Main entrypoint for demonstrating performance techniques.
+    """Demonstrate performance techniques.
 
     1. Measure runtime of a task.
     2. Show CPU-bound offloading using `asyncio.to_thread()`.
