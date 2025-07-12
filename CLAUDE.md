@@ -35,13 +35,29 @@ The codebase follows a strict lesson-based structure:
 - **Part III (Lessons 12-14)**: External integrations (Streams, Subprocess, Timeout)
 - **Part IV (Lessons 15-20)**: Event loop internals and advanced techniques
 
-### Lesson Pattern
-Each lesson follows the template in `notes/lesson_template.py`:
-1. Comprehensive docstring with Context, Summary, and References
-2. `demonstrate_concept()` function showing the core concept
-3. `main()` function orchestrating the demonstration
-4. Extensive doctests serving as both documentation and tests
-5. Executable entry point
+### Lesson Template Structure
+Each lesson strictly follows the template in `notes/lesson_template.py` with these sections:
+
+1. **Module Docstring** with:
+   - Clear title
+   - Context section (concept, prerequisites, references)
+   - Summary section (learning outcomes)
+   - Doctest notes
+
+2. **Standard imports** (only stdlib, primarily asyncio)
+
+3. **`demonstrate_concept()` function**:
+   - Core demonstration of the lesson's concept
+   - Comprehensive docstring with Examples section
+   - Minimal async sleep (0.001s) for testing speed
+   - Returns demonstrable results
+
+4. **`main()` function**:
+   - Orchestrates the demonstration
+   - Handles multiple tasks for concurrency lessons
+   - Prints results for direct execution
+
+5. **Executable entry point**: `if __name__ == "__main__"`
 
 ### Key Development Patterns
 - **Doctests**: All functionality is verified through doctests which pytest runs automatically
@@ -49,13 +65,49 @@ Each lesson follows the template in `notes/lesson_template.py`:
 - **Deterministic output**: Ensure consistent output for reliable doctests
 - **Type hints**: Strict mypy configuration requires comprehensive type annotations
 - **Self-contained**: Each lesson is independent and demonstrates a single concept
+- **Educational focus**: Comments explain tricky parts, no external dependencies
 
 ### Testing Strategy
 - pytest is configured with `--doctest-modules` to run all doctests
 - Tests are located within the lesson files themselves
 - No separate test directory - lessons are both educational content and tests
+- Use `# doctest: +ELLIPSIS` for non-deterministic output (concurrency)
+
+## Known Issues (from recommendations.md)
+
+### Critical Issues
+- **Lesson 11 missing**: No `011_barriers.py` file (content is in `012_streams.py`)
+- **Lesson 12 incorrect**: Contains barriers content instead of streams
+- **Streams not covered**: Network I/O with streams is completely missing
+
+### File Naming
+- Lesson 20 is `020_profiling_and_optimizing.py` (should be `020_performance_tuning.py`)
+
+### Content Balance
+- Over-emphasis on synchronization primitives (25% of content)
+- Under-representation of practical I/O examples
+- Missing topics: file I/O, HTTP clients, testing async code
+
+## CPython Asyncio Internals Reference
+
+For advanced lessons (15-20), key CPython internals to reference:
+
+### Core Files in CPython
+- `Lib/asyncio/base_events.py` - BaseEventLoop implementation
+- `Lib/asyncio/events.py` - Abstract interfaces
+- `Lib/asyncio/tasks.py` - Task implementation
+- `Lib/asyncio/futures.py` - Future implementation
+- `Modules/_asynciomodule.c` - C acceleration
+
+### Key Concepts to Cover
+- Event loop's `_run_once()` method and execution model
+- Task state machine and `__step` mechanism
+- Handle/TimerHandle callback system
+- Selector-based I/O and platform differences
+- Future/Task relationship and C optimization
 
 ## Important Notes
 - This is a pure Python stdlib project - no external dependencies beyond asyncio
 - Code style is enforced through extensive ruff rules including pydocstyle
 - When modifying lessons, ensure doctests still pass and output remains deterministic
+- Maintain educational value - each lesson should teach one concept clearly
