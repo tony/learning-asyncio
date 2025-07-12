@@ -81,3 +81,7 @@ pip-wheel-metadata/
 
 # Monkeytype
 monkeytype.sqlite3
+
+# Claude code
+**/CLAUDE.local.md
+**/.claude/settings.local.json
