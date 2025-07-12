@@ -23,17 +23,22 @@ Key Concepts and Best Practices:
 
 3. **Minimizing Overhead:**
    - Avoid excessive context switches by batching I/O operations.
-   - Use bulk operations when possible (e.g., gather multiple tasks at once rather than iterating with awaits).
-   - Keep the number of scheduled tasks manageable. Over-scheduling can increase overhead.
+   - Use bulk operations when possible (e.g., gather multiple tasks at once rather than
+     iterating with awaits).
+   - Keep the number of scheduled tasks manageable. Over-scheduling can increase
+     overhead.
 
 4. **Testing Under Load:**
-   - Use load testing and benchmarking tools (like `locust` for HTTP, custom scripts for internal tasks)
-     to measure how your application scales.
-   - Identify the "sweet spot" for concurrency and tune it. Sometimes fewer tasks result in better throughput.
+   - Use load testing and benchmarking tools (like `locust` for HTTP, custom scripts
+     for internal tasks) to measure how your application scales.
+   - Identify the "sweet spot" for concurrency and tune it. Sometimes fewer tasks
+     result in better throughput.
 
 5. **Other Python and System-level Optimizations:**
-   - Consider using `uvloop` (a drop-in replacement for the default event loop) for lower latency if allowed.
-   - Ensure the system’s event loop integration (e.g., epoll on Linux) is working optimally.
+   - Consider using `uvloop` (a drop-in replacement for the default event loop) for
+     lower latency if allowed.
+   - Ensure the system's event loop integration (e.g., epoll on Linux) is working
+     optimally.
    - Consider C extensions or PyPy for CPU-heavy code if compatible.
 
 Summary
@@ -48,8 +53,9 @@ Official Documentation:
 - `uvloop`: https://github.com/MagicStack/uvloop
 
 Doctest Notes:
-- We’ll show simple examples of measuring time and limiting concurrency. Actual performance gains
-  must be verified by running the code under realistic conditions, not just doctests.
+- We'll show simple examples of measuring time and limiting concurrency. Actual
+  performance gains must be verified by running the code under realistic conditions,
+  not just doctests.
 
 """
 
@@ -79,7 +85,7 @@ async def measure_runtime(coro: Callable[[], Awaitable[Any]]) -> float:
 
 
 async def cpu_bound_task(n: int) -> int:
-    """A CPU-bound simulation (inefficient fibonacci).
+    """Simulate a CPU-bound task (inefficient fibonacci).
 
     Demonstrates why to offload CPU tasks.
     """
