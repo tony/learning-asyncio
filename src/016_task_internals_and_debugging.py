@@ -10,11 +10,13 @@ from typing import Any
 
 
 async def worker_task(task_id: int) -> str:
+    """Simulate a simple worker task that completes after a short delay."""
     await asyncio.sleep(0.001)
     return f"Worker {task_id} completed"
 
 
 async def inspect_tasks(main_task: asyncio.Task[Any]) -> None:
+    """Inspect and print information about all running tasks."""
     current_tasks = asyncio.all_tasks()
     # Sort tasks for deterministic output: main first, then by name
     sorted_tasks = sorted(
@@ -31,7 +33,8 @@ async def inspect_tasks(main_task: asyncio.Task[Any]) -> None:
 
 
 async def main() -> None:
-    """
+    """Run the main demonstration for this lesson.
+
     Demonstrates:
     - Creating multiple tasks named for easier identification.
     - Using `asyncio.all_tasks()` to list them for debugging.

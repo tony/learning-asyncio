@@ -13,17 +13,21 @@ import asyncio
 
 
 class SharedQueue:
+    """A shared queue with condition variable for coordination."""
+
     def __init__(self) -> None:
         self.queue: list[int] = []
         self.condition = asyncio.Condition()
 
     async def produce(self, item: int) -> None:
+        """Add an item to the queue and notify waiting consumers."""
         async with self.condition:
             self.queue.append(item)
             print(f"Produced {item}")
             self.condition.notify_all()
 
     async def consume(self) -> int:
+        """Wait for an item to be available and consume it."""
         async with self.condition:
             await self.condition.wait_for(lambda: len(self.queue) > 0)
             item = self.queue.pop(0)
@@ -45,7 +49,7 @@ async def consumer(shared: SharedQueue, cid: int, total_items: int) -> None:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     We create a shared queue protected by a condition. Two producers each produce
     two items (total of 4 items), and two consumers each consume two items.

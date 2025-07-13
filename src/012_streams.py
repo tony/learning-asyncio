@@ -158,7 +158,7 @@ async def demonstrate_concept() -> str:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates a complete client-server interaction using asyncio streams.
 

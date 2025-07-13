@@ -14,18 +14,22 @@ import asyncio
 
 
 class CustomEventLoopPolicy(asyncio.DefaultEventLoopPolicy):
+    """A custom event loop policy for demonstration purposes."""
+
     def new_event_loop(self) -> asyncio.AbstractEventLoop:
+        """Create a new event loop instance."""
         return super().new_event_loop()
 
 
 async def demonstrate_custom_loop() -> str:
+    """Demonstrate running on a custom event loop."""
     await asyncio.sleep(0.001)
     return "Ran on a custom loop"
 
 
 def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates:
     1. Getting the current default event loop policy.

@@ -52,7 +52,7 @@ async def greet(name: str) -> str:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates creating multiple tasks to run concurrently. We schedule greetings
     for multiple names, then await each task. By using `create_task()`, we give the

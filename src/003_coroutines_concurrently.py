@@ -21,7 +21,7 @@ Official Documentation:
 
 Doctest Notes:
 - The output order is deterministic because we print results after `gather()` completes.
-- We’ll await multiple coroutines and then iterate over the results.
+- We'll await multiple coroutines and then iterate over the results.
 
 """
 
@@ -48,7 +48,7 @@ async def greet(name: str) -> str:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Uses `asyncio.gather()` to run multiple greet coroutines concurrently. Each coroutine
     simulates an I/O wait via `sleep()`, but running them together allows the event loop

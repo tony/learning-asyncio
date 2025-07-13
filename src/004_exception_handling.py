@@ -4,10 +4,11 @@ Handling Exceptions in Async Code.
 
 Context
 -------
-This lesson demonstrates how to handle exceptions in asynchronous code. Instead of letting
-errors crash your program, you can use `try/except` blocks around `await` calls to catch and
-handle exceptions gracefully. This is especially important when dealing with multiple tasks,
-where a single failing coroutine shouldn't necessarily stop the entire async workflow.
+This lesson demonstrates how to handle exceptions in asynchronous code. Instead of
+letting errors crash your program, you can use `try/except` blocks around `await`
+calls to catch and handle exceptions gracefully. This is especially important when
+dealing with multiple tasks, where a single failing coroutine shouldn't necessarily
+stop the entire async workflow.
 
 Summary
 -------
@@ -20,7 +21,8 @@ Official Documentation:
 - https://docs.python.org/3/tutorial/errors.html
 
 Doctest Notes:
-- The doctest shows successful handling of a passing scenario and catching an exception from a failing scenario.
+- The doctest shows successful handling of a passing scenario and catching an
+  exception from a failing scenario.
 - Output is deterministic and minimal.
 
 """
@@ -64,7 +66,7 @@ async def may_fail(succeed: bool) -> str:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates exception handling by calling `may_fail()` twice:
     - First with succeed=True, which should print "Success!"

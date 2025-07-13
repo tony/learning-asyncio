@@ -56,7 +56,7 @@ async def waiter(event: asyncio.Event) -> None:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates event signaling by creating a waiter task that waits on an event,
     and a setter task that sets the event after a delay. Once the event is set,

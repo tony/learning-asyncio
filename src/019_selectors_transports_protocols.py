@@ -50,7 +50,7 @@ Official Documentation:
 
 Doctest Notes:
 - We'll start a small echo server protocol and then connect to it with a client.
-- Output order may vary slightly, so we’ll use ellipses in doctests.
+- Output order may vary slightly, so we'll use ellipses in doctests.
 - The example focuses on conceptual clarity rather than robust error handling.
 
 """
@@ -60,29 +60,37 @@ from typing import cast
 
 
 class EchoServerProtocol(asyncio.Protocol):
+    """Protocol implementation for an echo server."""
+
     def connection_made(self, transport: asyncio.BaseTransport) -> None:
+        """Handle new client connection."""
         # Cast transport to WriteTransport so .write() is recognized
         self.transport = cast("asyncio.WriteTransport", transport)
         peername = self.transport.get_extra_info("peername")
         print(f"Connection made from {peername}")
 
     def data_received(self, data: bytes) -> None:
+        """Handle data received from the client."""
         message = data.decode()
         print(f"Server received: {message!r}")
         # Echo the data back
         self.transport.write(data)
 
     def connection_lost(self, exc: Exception | None) -> None:
+        """Handle connection close."""
         print("Server connection closed")
 
 
 class EchoClientProtocol(asyncio.Protocol):
+    """Protocol implementation for an echo client."""
+
     def __init__(self, message: str, on_con_lost: asyncio.Future[bool]) -> None:
         self.message = message
         self.on_con_lost = on_con_lost
         self.transport: asyncio.Transport | None = None
 
     def connection_made(self, transport: asyncio.BaseTransport) -> None:
+        """Handle connection establishment."""
         # Store transport for closing later, cast to Transport to satisfy mypy
         self.transport = cast("asyncio.Transport", transport)
         wtransport = cast("asyncio.WriteTransport", self.transport)
@@ -90,6 +98,7 @@ class EchoClientProtocol(asyncio.Protocol):
         wtransport.write(self.message.encode())
 
     def data_received(self, data: bytes) -> None:
+        """Handle data received from the server."""
         print(f"Client received: {data.decode()!r}")
         # Signal that we got the response
         self.on_con_lost.set_result(True)
@@ -97,12 +106,13 @@ class EchoClientProtocol(asyncio.Protocol):
             self.transport.close()
 
     def connection_lost(self, exc: Exception | None) -> None:
+        """Handle connection close."""
         print("Client connection closed")
 
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates creating a server and a client using custom protocols.
     We show that:

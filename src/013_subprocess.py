@@ -62,7 +62,7 @@ async def run_command(command: str) -> str:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Runs a sample command (`echo Hello, World!`) using an async subprocess, captures its output,
     and prints it. This demonstrates how to integrate external commands into an async workflow

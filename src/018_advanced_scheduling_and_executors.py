@@ -41,7 +41,7 @@ from collections.abc import Callable
 
 def cpu_bound_fib(n: int) -> int:
     """
-    A CPU-bound fibonacci calculation to simulate a heavy computation.
+    Calculate fibonacci number to simulate a heavy computation.
 
     Parameters
     ----------
@@ -62,14 +62,14 @@ def cpu_bound_fib(n: int) -> int:
 
 
 async def run_in_thread_pool(func: Callable[[int], int], arg: int) -> int:
-    """Runs a CPU-bound function in a thread pool executor."""
+    """Run a CPU-bound function in a thread pool executor."""
     loop = asyncio.get_running_loop()
     # By default, run_in_executor() uses the default thread pool.
     return await loop.run_in_executor(None, func, arg)
 
 
 async def run_in_process_pool(func: Callable[[int], int], arg: int) -> int:
-    """Runs a CPU-bound function in a process pool executor."""
+    """Run a CPU-bound function in a process pool executor."""
     loop = asyncio.get_running_loop()
     # Create a dedicated process pool for demonstration.
     with concurrent.futures.ProcessPoolExecutor() as pool:
@@ -78,7 +78,7 @@ async def run_in_process_pool(func: Callable[[int], int], arg: int) -> int:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates running CPU-bound tasks in both a thread pool (default executor)
     and a process pool. By doing so, the event loop can remain responsive to async tasks.

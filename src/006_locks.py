@@ -4,15 +4,16 @@ Ensuring Safe Access with Locks.
 
 Context
 -------
-This lesson demonstrates how to use `asyncio.Lock` to safely protect shared state accessed
-by multiple coroutines. When multiple tasks try to read or write shared data concurrently,
-race conditions can occur. By using a Lock, you can guarantee that only one coroutine
-modifies the shared resource at a time, preserving data integrity.
+This lesson demonstrates how to use `asyncio.Lock` to safely protect shared state
+accessed by multiple coroutines. When multiple tasks try to read or write shared data
+concurrently, race conditions can occur. By using a Lock, you can guarantee that only
+one coroutine modifies the shared resource at a time, preserving data integrity.
 
 Summary
 -------
 - Introduce `asyncio.Lock` to control concurrent access to a shared resource.
-- Show that multiple tasks incrementing a shared counter without a lock can cause race conditions.
+- Show that multiple tasks incrementing a shared counter without a lock can cause
+  race conditions.
 - Demonstrate how locking ensures consistent final values by serializing access.
 
 Official Documentation:
@@ -28,11 +29,14 @@ import asyncio
 
 
 class SharedResource:
+    """A shared resource with thread-safe access via an async lock."""
+
     def __init__(self) -> None:
         self.value = 0
         self.lock = asyncio.Lock()
 
     async def increment(self) -> None:
+        """Increment the shared value in a thread-safe manner."""
         # Acquire the lock before modifying the shared state.
         async with self.lock:
             # Simulate a brief pause to highlight the need for locking.
@@ -66,7 +70,7 @@ async def worker(resource: SharedResource, increments: int) -> None:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Runs multiple workers that increment a shared counter. Using a lock ensures that
     the final counter value matches the total expected increments (e.g., 2 workers

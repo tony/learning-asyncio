@@ -38,7 +38,8 @@ import asyncio
 
 async def simple_coroutine() -> str:
     """
-    A simple coroutine that returns a fixed message after a short delay.
+    Return a fixed message after a short delay.
+
     This gives the event loop time to run and potentially execute scheduled callbacks.
 
     Examples
@@ -52,13 +53,13 @@ async def simple_coroutine() -> str:
 
 
 def callback_function() -> None:
-    """A simple callback that prints a message, to be scheduled on the event loop."""
+    """Print a message when scheduled on the event loop."""
     print("Callback executed.")
 
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates:
     1. Accessing the running event loop.

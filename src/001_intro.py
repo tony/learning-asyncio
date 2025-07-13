@@ -4,16 +4,19 @@ Introduction to Asynchronous Programming.
 
 Context
 -------
-This lesson introduces the basic concepts of asynchronous programming in Python using `async` functions and the `await` keyword.
-You will learn how to define a simple asynchronous function and execute it using `asyncio.run()`. The goal is to understand the
-fundamental building blocks of Python’s async/await syntax before moving on to more complex scenarios.
+This lesson introduces the basic concepts of asynchronous programming in Python using
+`async` functions and the `await` keyword. You will learn how to define a simple
+asynchronous function and execute it using `asyncio.run()`. The goal is to understand
+the fundamental building blocks of Python's async/await syntax before moving on to more
+complex scenarios.
 
 Summary
 -------
 - Learn how to define an `async` function.
 - Use `await` to pause execution until a coroutine completes.
 - Run the coroutine using `asyncio.run()`.
-- Observe how async code differs from synchronous code by allowing the event loop to manage execution flow.
+- Observe how async code differs from synchronous code by allowing the event loop to
+  manage execution flow.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio.html
@@ -44,13 +47,12 @@ async def demonstrate_concept() -> str:
 
 
 async def main() -> None:
-    """
-    Main entrypoint for this lesson.
+    """Run the main demonstration for this lesson.
 
     Runs the async demonstration function and prints the result.
-    This showcases how `asyncio.run()` invokes the event loop, executes `demonstrate_concept()`,
-    and returns its result. By using `await`, `main()` can orchestrate asynchronous calls
-    without blocking the entire program.
+    This showcases how `asyncio.run()` invokes the event loop, executes
+    `demonstrate_concept()`, and returns its result. By using `await`, `main()` can
+    orchestrate asynchronous calls without blocking the entire program.
 
     Examples
     --------

@@ -30,7 +30,7 @@ import asyncio
 
 async def task_with_possible_delay(delay: float) -> str:
     """
-    Simulates a task that may or may not complete before a timeout.
+    Simulate a task that may or may not complete before a timeout.
 
     Parameters
     ----------
@@ -65,7 +65,7 @@ async def task_with_possible_delay(delay: float) -> str:
 
 async def main(timeout: bool = False, cancel: bool = False) -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Demonstrates three scenarios:
     1. Running a task successfully before the timeout (default).

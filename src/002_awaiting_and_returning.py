@@ -13,22 +13,23 @@ Summary
 -------
 - Introduce calling one async function from another.
 - Show how to pass arguments to async functions and await their results.
-- Demonstrate how the return value of an awaited coroutine can be used to influence subsequent logic.
+- Demonstrate how the return value of an awaited coroutine can be used to influence
+  subsequent logic.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-task.html
 
 Doctest Notes:
 - The output is deterministic.
-- We rely on a simple async function that returns a greeting message, which can be awaited multiple times with different inputs.
+- We rely on a simple async function that returns a greeting message, which can be
+  awaited multiple times with different inputs.
 """
 
 import asyncio
 
 
 async def greet(name: str) -> str:
-    """
-    Returns a personalized greeting message asynchronously.
+    """Return a personalized greeting message asynchronously.
 
     Parameters
     ----------
@@ -45,12 +46,11 @@ async def greet(name: str) -> str:
 
 
 async def main() -> None:
-    """
-    Main entrypoint for this lesson.
+    """Run the main demonstration for this lesson.
 
-    Demonstrates calling `greet()` from another async function multiple times with different arguments.
-    By awaiting each call, we can confirm that the returned values are immediately available to use or print,
-    effectively chaining async calls.
+    Demonstrates calling `greet()` from another async function multiple times with
+    different arguments. By awaiting each call, we can confirm that the returned values
+    are immediately available to use or print, effectively chaining async calls.
 
     Examples
     --------

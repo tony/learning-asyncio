@@ -33,6 +33,7 @@ async def producer(
     n: int,
     producer_id: int,
 ) -> None:
+    """Produce items and put them into the queue."""
     for i in range(n):
         await asyncio.sleep(0.001)  # Simulate production time
         item = (producer_id, i)
@@ -44,6 +45,7 @@ async def consumer(
     queue: asyncio.Queue[tuple[int, int] | None],
     consumer_id: int,
 ) -> None:
+    """Consume items from the queue until None is received."""
     while True:
         item = await queue.get()
         if item is None:
@@ -56,7 +58,7 @@ async def consumer(
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Creates multiple producers and consumers. After all producers finish,
     sends a sentinel (None) to signal consumers to stop. The output lines

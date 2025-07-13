@@ -48,7 +48,7 @@ async def worker(barrier: asyncio.Barrier, worker_id: int) -> None:
 
 async def main() -> None:
     """
-    Main entrypoint for this lesson.
+    Run the main demonstration for this lesson.
 
     Creates a barrier for a fixed number of tasks and runs them. Each worker waits at the barrier
     until all have arrived, ensuring they all reach this synchronization point before proceeding.
