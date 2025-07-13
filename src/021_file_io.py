@@ -95,7 +95,7 @@ async def write_file_async(filepath: Path, content: str) -> None:
 async def read_file_in_chunks(
     filepath: Path, chunk_size: int = 1024
 ) -> AsyncIterator[str]:
-    """
+    r"""
     Read a file in chunks asynchronously.
 
     This is useful for processing large files without loading
@@ -116,26 +116,29 @@ async def read_file_in_chunks(
     Examples
     --------
     >>> with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-    ...     _ = f.write("Line 1\\nLine 2\\nLine 3\\n")
+    ...     _ = f.write("ABCDEFGHIJKLMNOP")
     ...     temp_path = Path(f.name)
     >>> async def read_chunks():
     ...     chunks = []
-    ...     async for chunk in read_file_in_chunks(temp_path, chunk_size=7):
+    ...     async for chunk in read_file_in_chunks(temp_path, chunk_size=5):
     ...         chunks.append(chunk)
     ...     return chunks
     >>> try:
     ...     result = asyncio.run(read_chunks())
-    ...     for i, chunk in enumerate(result):
-    ...         print(f"Chunk {i}: {chunk!r}")
+    ...     print(f"Got {len(result)} chunks:")
+    ...     for chunk in result:
+    ...         print(f"  {chunk!r}")
     ... finally:
     ...     temp_path.unlink()
-    Chunk 0: 'Line 1\\n'
-    Chunk 1: 'Line 2\\n'
-    Chunk 2: 'Line 3\\n'
+    Got 4 chunks:
+      'ABCDE'
+      'FGHIJ'
+      'KLMNO'
+      'P'
     """
 
     def read_chunks_sync() -> Iterator[str]:
-        with open(filepath) as f:
+        with filepath.open() as f:
             while True:
                 chunk = f.read(chunk_size)
                 if not chunk:
@@ -143,7 +146,6 @@ async def read_file_in_chunks(
                 yield chunk
 
     # Run the generator in a thread to avoid blocking
-    loop = asyncio.get_event_loop()
     for chunk in read_chunks_sync():
         # Yield control back to event loop between chunks
         await asyncio.sleep(0)
@@ -279,7 +281,7 @@ async def main() -> None:
 
         # Read and process chunks
         chunk_num = 0
-        async for chunk in read_file_in_chunks(large_file, chunk_size=50):
+        async for _chunk in read_file_in_chunks(large_file, chunk_size=50):
             chunk_num += 1
             print(f"Processing chunk {chunk_num}...")
             await asyncio.sleep(0.001)  # Simulate processing
