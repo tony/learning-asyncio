@@ -2,27 +2,14 @@
 
 ## Executive Summary
 
-The asyncio tutorial series is well-structured with high-quality content, but has several issues that need addressing:
-- Missing lessons (11 and proper lesson 12)
+The asyncio tutorial series is well-structured with high-quality content. The critical missing lessons have been fixed, but there are opportunities for improvement:
 - Disproportionate focus on synchronization primitives
-- Lack of practical I/O examples
-- File naming inconsistencies
+- Lack of practical I/O examples beyond basic streams
+- File naming inconsistency for lesson 20
 
-## Critical Issues to Fix
+## Remaining Issues to Fix
 
-### 1. Missing Content
-
-**Lesson 11 - Barriers (MISSING)**
-- File `011_barriers.py` does not exist
-- Content is misplaced in `012_streams.py`
-- Action: Create `011_barriers.py` and move the barriers content there
-
-**Lesson 12 - Streams (MISSING)**
-- `012_streams.py` contains barriers content instead of streams
-- Network I/O with streams is completely missing
-- Action: Implement proper streams lesson showing TCP client/server
-
-### 2. File Naming Issues
+### 1. File Naming Issue
 
 - Lesson 20 is named `020_profiling_and_optimizing.py` but referenced as `020_performance_tuning.py`
 - Action: Rename for consistency with progression.md
@@ -91,20 +78,9 @@ The asyncio tutorial series is well-structured with high-quality content, but ha
 
 ### Immediate Actions (High Priority)
 
-1. **Create `011_barriers.py`**
-   ```python
-   # Move content from 012_streams.py to new 011_barriers.py
-   ```
-
-2. **Implement proper `012_streams.py`**
-   ```python
-   # TCP echo server and client using StreamReader/StreamWriter
-   # Show concurrent client handling
-   ```
-
-3. **Rename lesson 20 file**
+1. **Rename lesson 20 file**
    ```bash
-   mv 020_profiling_and_optimizing.py 020_performance_tuning.py
+   mv src/020_profiling_and_optimizing.py src/020_performance_tuning.py
    ```
 
 ### Content Improvements (Medium Priority)
@@ -150,8 +126,17 @@ The asyncio tutorial series is well-structured with high-quality content, but ha
 - **Error handling**: Only basic try/except shown
 - **Real-world patterns**: Limited practical examples
 
+## Progress Update
+
+### ✅ Completed Since Original Review
+- **Lesson 11 (Barriers)**: Now exists with proper `asyncio.Barrier` content
+- **Lesson 12 (Streams)**: Now contains correct TCP server/client networking examples
+
 ## Conclusion
 
-The tutorial series provides excellent coverage of asyncio fundamentals and internals but needs better balance between theory and practice. By fixing the missing lessons and adding more practical I/O examples, this could become a comprehensive resource for learning asyncio at all levels.
+The tutorial series provides excellent coverage of asyncio fundamentals and internals. With the critical missing lessons now fixed, the main opportunities are:
+1. Simple file rename for consistency
+2. Adding more practical I/O examples
+3. Better balance between theory and practice
 
-The quality of existing content is high - maintaining this standard while filling gaps will create an exceptional learning resource.
+The quality of existing content is high - maintaining this standard while adding practical examples will create an exceptional learning resource.
