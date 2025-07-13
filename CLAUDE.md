@@ -75,18 +75,13 @@ Each lesson strictly follows the template in `notes/lesson_template.py` with the
 
 ## Known Issues (from recommendations.md)
 
-### Critical Issues
-- **Lesson 11 missing**: No `011_barriers.py` file (content is in `012_streams.py`)
-- **Lesson 12 incorrect**: Contains barriers content instead of streams
-- **Streams not covered**: Network I/O with streams is completely missing
-
 ### File Naming
 - Lesson 20 is `020_profiling_and_optimizing.py` (should be `020_performance_tuning.py`)
 
 ### Content Balance
-- Over-emphasis on synchronization primitives (25% of content)
-- Under-representation of practical I/O examples
-- Missing topics: file I/O, HTTP clients, testing async code
+- Over-emphasis on synchronization primitives (30% of content)
+- Under-representation of practical I/O examples beyond basic streams
+- Missing topics: file I/O, HTTP clients, testing async code, async context managers
 
 ## CPython Asyncio Internals Reference
 
