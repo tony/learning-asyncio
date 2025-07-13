@@ -5,8 +5,10 @@ Customizing the Event Loop.
 [Context and summary as before]
 
 Doctest Notes:
-- We use ellipses in the doctest to allow flexibility in class names and memory addresses.
-- We match on substrings like 'DefaultEventLoopPolicy' and 'EventLoop' rather than full paths.
+- We use ellipses in the doctest to allow flexibility in class names and memory
+  addresses.
+- We match on substrings like 'DefaultEventLoopPolicy' and 'EventLoop' rather
+  than full paths.
 
 """
 

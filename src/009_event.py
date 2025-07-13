@@ -4,23 +4,28 @@ Event Signaling Between Coroutines.
 
 Context
 -------
-This lesson illustrates how to use `asyncio.Event` to signal state changes between coroutines.
-An `Event` allows one coroutine to wait for a certain condition to occur, while another coroutine,
-when it completes its work or reaches a certain state, can set the event. This enables event-driven
-synchronization patterns where tasks can efficiently wait for signals instead of constantly polling.
+This lesson illustrates how to use `asyncio.Event` to signal state changes
+between coroutines. An `Event` allows one coroutine to wait for a certain
+condition to occur, while another coroutine, when it completes its work or
+reaches a certain state, can set the event. This enables event-driven
+synchronization patterns where tasks can efficiently wait for signals instead
+of constantly polling.
 
 Summary
 -------
 - Introduce `asyncio.Event` for signaling between coroutines.
-- Show how one task can block until another sets the event, effectively "waking" the waiting task.
-- Demonstrate a simple event-driven workflow where the timing and order of tasks are controlled by events.
+- Show how one task can block until another sets the event, effectively
+  "waking" the waiting task.
+- Demonstrate a simple event-driven workflow where the timing and order of
+  tasks are controlled by events.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Event
 
 Doctest Notes:
-- The order of printed messages is deterministic here because the waiter will always print first, then block,
-  and only after the setter sets the event will the waiter proceed. We use a short sleep in the setter to simulate delay.
+- The order of printed messages is deterministic here because the waiter will
+  always print first, then block, and only after the setter sets the event will
+  the waiter proceed. We use a short sleep in the setter to simulate delay.
 """
 
 import asyncio

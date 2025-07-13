@@ -4,12 +4,12 @@ Selectors, Transports, and Protocols.
 
 Context
 -------
-At the core of asyncio's asynchronous I/O lie transports and protocols, which are
-low-level abstractions over system calls, sockets, and selectors. A "selector" is used by
-asyncio to monitor multiple file descriptors for I/O readiness events. Transports provide
-a high-level interface for sending and receiving data without directly dealing with the
-underlying OS calls. Protocols define the behavior of what to do with incoming and
-outgoing data.
+At the core of asyncio's asynchronous I/O lie transports and protocols, which
+are low-level abstractions over system calls, sockets, and selectors. A
+"selector" is used by asyncio to monitor multiple file descriptors for I/O
+readiness events. Transports provide a high-level interface for sending and
+receiving data without directly dealing with the underlying OS calls. Protocols
+define the behavior of what to do with incoming and outgoing data.
 
 Key Concepts:
 - A Selector (from the `selectors` module) is used internally by the event loop to watch
@@ -18,9 +18,9 @@ Key Concepts:
 - A Transport is an abstraction provided by asyncio that handles the actual I/O (like
   writing to a socket) and buffering. It frees you from manually handling `os.read()`,
   `os.write()`, or non-blocking flags on sockets.
-- A Protocol is a callback-based abstraction that receives events: connection made, data
-  received, connection lost. It's where you implement your application logic for handling
-  I/O.
+- A Protocol is a callback-based abstraction that receives events: connection
+  made, data received, connection lost. It's where you implement your
+  application logic for handling I/O.
 
 By understanding these, you gain insight into how asyncio can handle multiple network
 connections concurrently without blocking.
@@ -28,14 +28,15 @@ connections concurrently without blocking.
 Examples of Selectors and Transports
 ------------------------------------
 While asyncio hides selectors behind its event loop, here's what happens under the hood:
-- The event loop (often a SelectorEventLoop on Unix) uses a `selectors.Selector` instance
-  (e.g., `selectors.EpollSelector` on Linux) to register sockets for read/write events.
+- The event loop (often a SelectorEventLoop on Unix) uses a
+  `selectors.Selector` instance (e.g., `selectors.EpollSelector` on Linux) to
+  register sockets for read/write events.
 - When a socket is ready, the selector notifies the event loop, which then calls the
   protocol's `data_received()` or `connection_made()` methods depending on the event.
 
-You typically don't interact with the selector directly. Instead, you work with high-level
-APIs like `create_connection()` or `create_server()` that return a Transport and use a
-Protocol.
+You typically don't interact with the selector directly. Instead, you work with
+high-level APIs like `create_connection()` or `create_server()` that return a
+Transport and use a Protocol.
 
 Transports Example:
 - When you call `transport.write(data)`, the Transport schedules the write operation.

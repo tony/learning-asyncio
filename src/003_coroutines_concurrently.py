@@ -4,16 +4,17 @@ Running Coroutines Concurrently.
 
 Context
 -------
-This lesson introduces running multiple coroutines concurrently using `asyncio.gather()`.
-While async code does not run tasks in parallel on multiple CPU cores, it can efficiently
-interleave I/O-bound operations. By concurrently waiting for multiple asynchronous tasks,
-your code can handle more tasks in the same amount of time compared to running them
-sequentially.
+This lesson introduces running multiple coroutines concurrently using
+`asyncio.gather()`. While async code does not run tasks in parallel on multiple
+CPU cores, it can efficiently interleave I/O-bound operations. By concurrently
+waiting for multiple asynchronous tasks, your code can handle more tasks in the
+same amount of time compared to running them sequentially.
 
 Summary
 -------
 - Demonstrates how to use `asyncio.gather()` to run multiple tasks at once.
-- Explains the difference between concurrency (interleaving tasks) and parallelism (executing tasks simultaneously).
+- Explains the difference between concurrency (interleaving tasks) and
+  parallelism (executing tasks simultaneously).
 - Shows how async code excels at handling I/O-bound operations.
 
 Official Documentation:
@@ -50,9 +51,10 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Uses `asyncio.gather()` to run multiple greet coroutines concurrently. Each coroutine
-    simulates an I/O wait via `sleep()`, but running them together allows the event loop
-    to interleave their execution. Once all are completed, we print their results.
+    Uses `asyncio.gather()` to run multiple greet coroutines concurrently. Each
+    coroutine simulates an I/O wait via `sleep()`, but running them together
+    allows the event loop to interleave their execution. Once all are completed,
+    we print their results.
 
     Examples
     --------

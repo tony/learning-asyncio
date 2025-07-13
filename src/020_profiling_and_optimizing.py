@@ -4,22 +4,27 @@ Performance Tuning and Best Practices.
 
 Context
 -------
-As your async application grows, ensuring high performance becomes essential. This lesson
-outlines strategies and tools for profiling and optimizing asyncio programs, as well as
-general best practices for stable, low-latency async systems.
+As your async application grows, ensuring high performance becomes essential.
+This lesson outlines strategies and tools for profiling and optimizing asyncio
+programs, as well as general best practices for stable, low-latency async
+systems.
 
 Key Concepts and Best Practices:
 1. **Reduce Event Loop Latency:**
    - Keep tasks short and non-blocking. Break long tasks into smaller coroutines.
-   - For CPU-bound workloads, offload to executors or separate processes to avoid blocking the loop.
-   - Limit concurrency to a reasonable level using semaphores or queues to prevent the event loop
-     from being overwhelmed.
+   - For CPU-bound workloads, offload to executors or separate processes to
+     avoid blocking the loop.
+   - Limit concurrency to a reasonable level using semaphores or queues to
+     prevent the event loop from being overwhelmed.
 
 2. **Profiling and Monitoring:**
-   - Use `asyncio.run(main(), debug=True)` or `PYTHONASYNCIODEBUG=1` to enable asyncio debug mode.
-     This can help detect common pitfalls like blocked event loops or slow callbacks.
-   - Employ profiling tools such as `yappi`, `py-spy`, or `tracemalloc` to identify bottlenecks.
-   - Use logging and metrics (e.g., Prometheus, StatsD) to monitor latency, task durations, and system load.
+   - Use `asyncio.run(main(), debug=True)` or `PYTHONASYNCIODEBUG=1` to enable
+     asyncio debug mode. This can help detect common pitfalls like blocked
+     event loops or slow callbacks.
+   - Employ profiling tools such as `yappi`, `py-spy`, or `tracemalloc` to
+     identify bottlenecks.
+   - Use logging and metrics (e.g., Prometheus, StatsD) to monitor latency,
+     task durations, and system load.
 
 3. **Minimizing Overhead:**
    - Avoid excessive context switches by batching I/O operations.

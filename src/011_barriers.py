@@ -4,10 +4,11 @@ Synchronizing Tasks with Barriers.
 
 Context
 -------
-This lesson demonstrates how to use `asyncio.Barrier` to synchronize a fixed number of tasks.
-A barrier allows a group of coroutines to run independently until they all reach the same
-"barrier" point. Once all tasks have arrived at the barrier, they are simultaneously allowed
-to proceed, ensuring that certain parts of your workflow happen in well-defined phases.
+This lesson demonstrates how to use `asyncio.Barrier` to synchronize a fixed
+number of tasks. A barrier allows a group of coroutines to run independently
+until they all reach the same "barrier" point. Once all tasks have arrived at
+the barrier, they are simultaneously allowed to proceed, ensuring that certain
+parts of your workflow happen in well-defined phases.
 
 Summary
 -------
@@ -19,7 +20,8 @@ Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Barrier
 
 Doctest Notes:
-- The order in which tasks print their "waiting" messages may vary, but they must all print before the barrier is passed.
+- The order in which tasks print their "waiting" messages may vary, but they
+  must all print before the barrier is passed.
 - Once all tasks reach the barrier, they pass it and print their "passed" messages.
 - Use ellipses for flexibility in output order if necessary.
 """
@@ -50,8 +52,9 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Creates a barrier for a fixed number of tasks and runs them. Each worker waits at the barrier
-    until all have arrived, ensuring they all reach this synchronization point before proceeding.
+    Creates a barrier for a fixed number of tasks and runs them. Each worker
+    waits at the barrier until all have arrived, ensuring they all reach this
+    synchronization point before proceeding.
 
     Examples
     --------

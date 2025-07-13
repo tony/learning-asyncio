@@ -4,24 +4,28 @@ Running and Managing Subprocesses.
 
 Context
 -------
-This lesson shows how to run external commands as subprocesses within your async application.
-By using `asyncio.create_subprocess_shell()` or `asyncio.create_subprocess_exec()`, you can start
-external processes, capture their output, and integrate them into your event loop without blocking.
-This is essential for scenarios where your async code needs to interact with legacy tools, shell
-commands, or other external programs.
+This lesson shows how to run external commands as subprocesses within your async
+application. By using `asyncio.create_subprocess_shell()` or
+`asyncio.create_subprocess_exec()`, you can start external processes, capture
+their output, and integrate them into your event loop without blocking. This is
+essential for scenarios where your async code needs to interact with legacy
+tools, shell commands, or other external programs.
 
 Summary
 -------
 - Demonstrate starting a subprocess asynchronously.
 - Show how to capture and handle stdout/stderr from the subprocess.
-- Integrate subprocess handling into the async event loop, ensuring other tasks aren't blocked.
+- Integrate subprocess handling into the async event loop, ensuring other tasks
+  aren't blocked.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-subprocess.html
 
 Doctest Notes:
-- We use a simple `echo` command as an example, which should output "Hello, World!" reliably.
-- The doctest for `run_command` checks only the returned value, so we should not print inside `run_command`.
+- We use a simple `echo` command as an example, which should output
+  "Hello, World!" reliably.
+- The doctest for `run_command` checks only the returned value, so we should not
+  print inside `run_command`.
 - In `main`, we demonstrate printing the output after calling `run_command`.
 """
 
@@ -64,9 +68,9 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Runs a sample command (`echo Hello, World!`) using an async subprocess, captures its output,
-    and prints it. This demonstrates how to integrate external commands into an async workflow
-    without blocking the event loop.
+    Runs a sample command (`echo Hello, World!`) using an async subprocess,
+    captures its output, and prints it. This demonstrates how to integrate
+    external commands into an async workflow without blocking the event loop.
 
     Examples
     --------

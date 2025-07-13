@@ -4,16 +4,17 @@ Applying Timeouts and Task Cancellations.
 
 Context
 -------
-This lesson demonstrates how to use `asyncio.wait_for()` to limit the execution time of a task,
-as well as how to handle task cancellations gracefully. Timeouts are one way to stop a task
-from running indefinitely, while explicit cancellation allows you to cancel tasks that are no
-longer needed.
+This lesson demonstrates how to use `asyncio.wait_for()` to limit the execution
+time of a task, as well as how to handle task cancellations gracefully.
+Timeouts are one way to stop a task from running indefinitely, while explicit
+cancellation allows you to cancel tasks that are no longer needed.
 
 Summary
 -------
 - Use `asyncio.wait_for()` to apply time limits to tasks.
 - Handle `asyncio.TimeoutError` to gracefully manage long-running tasks.
-- Demonstrate explicit cancellation with `task.cancel()` and how to handle `asyncio.CancelledError`.
+- Demonstrate explicit cancellation with `task.cancel()` and how to handle
+  `asyncio.CancelledError`.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-task.html#timeouts

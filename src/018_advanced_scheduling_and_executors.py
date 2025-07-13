@@ -4,15 +4,18 @@ Advanced Scheduling and Executors.
 
 Context
 -------
-This lesson shows how to integrate `asyncio` with executors to offload CPU-bound tasks
-from the event loop. While asyncio excels at managing I/O-bound concurrency, CPU-bound tasks
-can block the event loop and degrade responsiveness. By running them in a thread or process pool,
-the event loop can continue handling I/O while the CPU-bound work executes elsewhere.
+This lesson shows how to integrate `asyncio` with executors to offload
+CPU-bound tasks from the event loop. While asyncio excels at managing I/O-bound
+concurrency, CPU-bound tasks can block the event loop and degrade
+responsiveness. By running them in a thread or process pool, the event loop can
+continue handling I/O while the CPU-bound work executes elsewhere.
 
 Key Concepts:
-- `asyncio.run_in_executor()` schedules a blocking function call in a thread or process pool.
+- `asyncio.run_in_executor()` schedules a blocking function call in a thread or
+  process pool.
 - For CPU-bound tasks, a process pool may be more efficient (to avoid GIL contention).
-- For I/O-bound tasks (like file or network I/O that isn't async), a thread pool might suffice.
+- For I/O-bound tasks (like file or network I/O that isn't async), a thread
+  pool might suffice.
 - The event loop manages scheduling both coroutines and executor-backed tasks, ensuring
   the main thread remains responsive.
 
@@ -27,7 +30,8 @@ Official Documentation:
 - https://docs.python.org/3/library/concurrent.futures.html
 
 Doctest Notes:
-- We'll show a CPU-bound function (like calculating Fibonacci numbers) running in executors.
+- We'll show a CPU-bound function (like calculating Fibonacci numbers) running
+  in executors.
 - Output order may vary slightly, so we use ellipses to allow flexibility.
 - The example demonstrates offloading tasks to a thread pool and a process pool.
 
@@ -80,8 +84,9 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Demonstrates running CPU-bound tasks in both a thread pool (default executor)
-    and a process pool. By doing so, the event loop can remain responsive to async tasks.
+    Demonstrates running CPU-bound tasks in both a thread pool (default
+    executor) and a process pool. By doing so, the event loop can remain
+    responsive to async tasks.
 
     We calculate a Fibonacci number in both a thread pool and a process pool
     to show that the event loop is not blocked by these computations.
@@ -105,6 +110,7 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    # Use a safer start method to avoid the fork() warning in multi-threaded environments
+    # Use a safer start method to avoid the fork() warning in multi-threaded
+    # environments
     multiprocessing.set_start_method("spawn")
     asyncio.run(main())

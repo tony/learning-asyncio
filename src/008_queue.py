@@ -4,16 +4,18 @@ Queue-Based Producer-Consumer Patterns.
 
 Context
 -------
-This lesson demonstrates how to implement producer-consumer patterns using `asyncio.Queue`.
-Queues provide a safe, built-in way to transfer data between coroutines without manual
-synchronization. By using an `asyncio.Queue`, we can have multiple producers enqueueing
-items and multiple consumers dequeuing them, all concurrently. As workloads grow, we can
-easily scale up the number of producers and consumers to handle larger demands.
+This lesson demonstrates how to implement producer-consumer patterns using
+`asyncio.Queue`. Queues provide a safe, built-in way to transfer data between
+coroutines without manual synchronization. By using an `asyncio.Queue`, we can
+have multiple producers enqueueing items and multiple consumers dequeuing them,
+all concurrently. As workloads grow, we can easily scale up the number of
+producers and consumers to handle larger demands.
 
 Summary
 -------
 - Introduce `asyncio.Queue` for producer-consumer communication.
-- Show how multiple producers and consumers can run concurrently, feeding and draining the queue.
+- Show how multiple producers and consumers can run concurrently, feeding and
+  draining the queue.
 - Understand how queues simplify synchronization in asynchronous workflows.
 
 Official Documentation:
@@ -21,8 +23,10 @@ Official Documentation:
 
 Doctest Notes:
 - Due to concurrency, the exact sequence of produced and consumed items may vary.
-- We will use ellipses in each line of the doctest output to allow for any order of production and consumption.
-- The key is that there will be four "Produced" lines and four "Consumed by ..." lines, but their interleaving may differ.
+- We will use ellipses in each line of the doctest output to allow for any
+  order of production and consumption.
+- The key is that there will be four "Produced" lines and four
+  "Consumed by ..." lines, but their interleaving may differ.
 """
 
 import asyncio
@@ -99,7 +103,8 @@ async def main() -> None:
 
     await queue.join()
 
-    # Cancel any consumer tasks if still running (they should have exited after sentinel)
+    # Cancel any consumer tasks if still running
+    # (they should have exited after sentinel)
     for c in consumers:
         if not c.done():
             c.cancel()

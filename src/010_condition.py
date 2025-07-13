@@ -5,7 +5,8 @@ Condition Variables for Complex Coordination.
 [... Same context and summary as before ...]
 
 Doctest Notes:
-- After this change, we ensure a stable output order: all items are produced before any are consumed.
+- After this change, we ensure a stable output order: all items are produced
+  before any are consumed.
 - This allows the doctest to match the lines in the expected order.
 """
 
@@ -36,12 +37,26 @@ class SharedQueue:
 
 
 async def producer(shared: SharedQueue, pid: int, count: int) -> None:
+    """Produce items and add them to the shared queue.
+
+    Args:
+        shared: The shared queue protected by a condition variable.
+        pid: Producer ID used to generate unique item values.
+        count: Number of items to produce.
+    """
     for i in range(count):
         await asyncio.sleep(0.001)
         await shared.produce((pid * 100) + i)
 
 
 async def consumer(shared: SharedQueue, cid: int, total_items: int) -> None:
+    """Consume items from the shared queue.
+
+    Args:
+        shared: The shared queue protected by a condition variable.
+        cid: Consumer ID (used for identification in output).
+        total_items: Number of items to consume.
+    """
     for _ in range(total_items):
         await asyncio.sleep(0.001)
         await shared.consume()

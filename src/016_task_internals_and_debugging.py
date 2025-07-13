@@ -27,7 +27,8 @@ async def inspect_tasks(main_task: asyncio.Task[Any]) -> None:
     for t in sorted_tasks:
         task_name = "main" if t is main_task else (t.get_name() or "unnamed")
         print(
-            f"Inspecting Task: {task_name} - Done: {t.done()}, Cancelled: {t.cancelled()}",
+            f"Inspecting Task: {task_name} - Done: {t.done()}, "
+            f"Cancelled: {t.cancelled()}",
         )
     print(f"Total tasks currently: {len(current_tasks)}")
 

@@ -4,22 +4,27 @@ Understanding the Event Loop.
 
 Context
 -------
-This lesson dives into the internals of the asyncio event loop. The event loop is the core
-of asyncio, orchestrating the execution of coroutines, scheduling callbacks, handling I/O events,
-and integrating with lower-level OS primitives such as selectors.
+This lesson dives into the internals of the asyncio event loop. The event loop
+is the core of asyncio, orchestrating the execution of coroutines, scheduling
+callbacks, handling I/O events, and integrating with lower-level OS primitives
+such as selectors.
 
 Key concepts:
-- The event loop runs the “event loop cycle”: selecting which tasks are ready to run,
-  running them until they block (e.g., await I/O), and then switching to other pending tasks.
+- The event loop runs the "event loop cycle": selecting which tasks are ready
+  to run, running them until they block (e.g., await I/O), and then switching
+  to other pending tasks.
 - `asyncio.get_running_loop()` gives you direct access to the currently running loop.
-- Event loop policies and custom loops allow you to replace or configure the default loop.
-- Low-level APIs let you add callbacks, integrate with OS-level asynchronous I/O, or customize event handling.
+- Event loop policies and custom loops allow you to replace or configure the
+  default loop.
+- Low-level APIs let you add callbacks, integrate with OS-level asynchronous
+  I/O, or customize event handling.
 
 Summary
 -------
 - Learn how to get the running event loop with `asyncio.get_running_loop()`.
 - Understand that the event loop manages tasks, callbacks, and I/O asynchronously.
-- Explore event loop methods like `call_soon()` and `call_later()` for scheduling callbacks.
+- Explore event loop methods like `call_soon()` and `call_later()` for
+  scheduling callbacks.
 - Demonstrate how the event loop selects tasks to run and how they are interleaved.
 
 Official Documentation:
@@ -29,7 +34,8 @@ Official Documentation:
 Doctest Notes:
 - We will show how to access the current event loop and schedule a callback.
 - The exact timing of callbacks can vary, so we may use ellipses in doctests.
-- Because this lesson involves internal mechanisms, some outputs may be more illustrative than strictly tested.
+- Because this lesson involves internal mechanisms, some outputs may be more
+  illustrative than strictly tested.
 
 """
 
@@ -64,7 +70,8 @@ async def main() -> None:
     Demonstrates:
     1. Accessing the running event loop.
     2. Scheduling callbacks that run soon, after the current iteration of the loop.
-    3. Running a coroutine to observe interplay between scheduled callbacks and coroutine execution.
+    3. Running a coroutine to observe interplay between scheduled callbacks
+       and coroutine execution.
     4. Inspecting event loop methods.
 
     Examples
