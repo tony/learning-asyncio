@@ -25,14 +25,17 @@ Summary
 - Understand that the event loop manages tasks, callbacks, and I/O asynchronously.
 - Explore event loop methods like `call_soon()` and `call_later()` for
   scheduling callbacks.
-- Demonstrate how the event loop selects tasks to run and how they are interleaved.
+- Use `asyncio.Runner` to manage an event loop explicitly from synchronous code.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-eventloop.html
+- https://docs.python.org/3/library/asyncio-runner.html
 - https://docs.python.org/3/library/asyncio-policy.html
 
 Doctest Notes:
-- We will show how to access the current event loop and schedule a callback.
+- We show how to access the current event loop and schedule a callback.
+- Demonstrations include running a coroutine via both `asyncio.run()` and
+  `asyncio.Runner` to highlight entry-point differences.
 - The exact timing of callbacks can vary, so we may use ellipses in doctests.
 - Because this lesson involves internal mechanisms, some outputs may be more
   illustrative than strictly tested.
@@ -61,6 +64,22 @@ async def simple_coroutine() -> str:
 def callback_function() -> None:
     """Print a message when scheduled on the event loop."""
     print("Callback executed.")
+
+
+def run_coroutine_with_runner() -> str:
+    """
+    Execute ``simple_coroutine`` by managing the loop with ``asyncio.Runner``.
+
+    ``asyncio.Runner`` gives synchronous entry points precise control over loop
+    lifetime, which is helpful when embedding asyncio inside larger frameworks.
+
+    Examples
+    --------
+    >>> run_coroutine_with_runner()
+    'Completed'
+    """
+    with asyncio.Runner() as runner:
+        return runner.run(simple_coroutine())
 
 
 async def main() -> None:
@@ -96,3 +115,5 @@ async def main() -> None:
 
 if __name__ == "__main__":
     asyncio.run(main())
+    runner_result = run_coroutine_with_runner()
+    print(f"Runner result: {runner_result}")
