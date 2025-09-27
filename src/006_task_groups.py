@@ -82,7 +82,8 @@ async def demonstrate_failure_handling() -> None:
 
     async def faulty() -> None:
         await asyncio.sleep(0.001)
-        raise RuntimeError("boom")
+        message = "boom"
+        raise RuntimeError(message)
 
     async def slow() -> None:
         await asyncio.sleep(0.01)
