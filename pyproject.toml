@@ -9,8 +9,8 @@ authors = [
   {name = "Tony Narlock", email = "tony@git-pull.com"}
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   ### Testing ###
   "pytest",
   "pytest-rerunfailures",
