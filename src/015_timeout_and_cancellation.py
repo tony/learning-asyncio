@@ -4,15 +4,16 @@ Applying Timeouts and Task Cancellations.
 
 Context
 -------
-This lesson demonstrates how to use `asyncio.wait_for()` to limit the execution
-time of a task, as well as how to handle task cancellations gracefully.
-Timeouts are one way to stop a task from running indefinitely, while explicit
-cancellation allows you to cancel tasks that are no longer needed.
+This lesson demonstrates how to limit coroutine execution using both
+`asyncio.wait_for()` and the modern `asyncio.timeout()` context manager, as well as
+how to handle task cancellations gracefully. Timeouts prevent tasks from running
+indefinitely, while explicit cancellation lets you stop work that is no longer needed.
 
 Summary
 -------
-- Use `asyncio.wait_for()` to apply time limits to tasks.
-- Handle `asyncio.TimeoutError` to gracefully manage long-running tasks.
+- Use `asyncio.wait_for()` to apply time limits to awaited coroutines.
+- Leverage `asyncio.timeout()` / `timeout_at()` for structured timeout management that
+  converts cancellations into `TimeoutError`.
 - Demonstrate explicit cancellation with `task.cancel()` and how to handle
   `asyncio.CancelledError`.
 
@@ -21,7 +22,7 @@ Official Documentation:
 - https://docs.python.org/3/library/asyncio-task.html#task-cancellation
 
 Doctest Notes:
-- We show two scenarios with timeouts (one succeeds, one times out).
+- We show success and timeout scenarios for both `wait_for()` and the timeout context.
 - We also show a scenario with explicit cancellation.
 
 """
@@ -43,42 +44,60 @@ async def task_with_possible_delay(delay: float) -> str:
     str
         A success message if completed.
 
-    Raises
-    ------
-    asyncio.TimeoutError
-        If the task takes longer than the imposed timeout (when wrapped in `wait_for`).
-
     Examples
     --------
-    >>> # Completing before timeout
+    >>> # Completing before timeout using wait_for
     >>> asyncio.run(asyncio.wait_for(task_with_possible_delay(0.001), timeout=0.1))
     'Task completed'
-    >>> # Timing out
+    >>> # Completing before timeout using asyncio.timeout context manager
+    >>> asyncio.run(run_with_timeout_context(0.001, 0.1))
+    'Task completed'
+    >>> # Timing out with wait_for
     >>> try:
     ...     asyncio.run(asyncio.wait_for(task_with_possible_delay(0.1), timeout=0.001))
     ... except asyncio.TimeoutError:
     ...     print("Task timed out")
     Task timed out
+    >>> # Timing out with asyncio.timeout
+    >>> try:
+    ...     asyncio.run(run_with_timeout_context(0.1, 0.001))
+    ... except TimeoutError:
+    ...     print("Context timed out")
+    Context timed out
     """
     await asyncio.sleep(delay)
     return "Task completed"
 
 
-async def main(timeout: bool = False, cancel: bool = False) -> None:
+async def run_with_timeout_context(delay: float, timeout: float) -> str:
+    """Run `task_with_possible_delay` inside an `asyncio.timeout()` context."""
+    async with asyncio.timeout(timeout):
+        return await task_with_possible_delay(delay)
+
+
+async def main(
+    timeout: bool = False,
+    cancel: bool = False,
+    use_context_timeout: bool = False,
+) -> None:
     """
     Run the main demonstration for this lesson.
 
-    Demonstrates three scenarios:
-    1. Running a task successfully before the timeout (default).
-    2. Timing out a task by using `wait_for()` with a short timeout (timeout=True).
-    3. Explicitly cancelling a running task (cancel=True).
+    Demonstrates four scenarios:
+    1. Running a task successfully before the timeout (`wait_for` and context).
+    2. Timing out a task by using `wait_for()` with a short timeout (`timeout=True`).
+    3. Timing out a task with the timeout context manager (`use_context_timeout=True`).
+    4. Explicitly cancelling a running task (`cancel=True`).
 
     Examples
     --------
     >>> asyncio.run(main())
-    Task completed
+    Wait-for result: Task completed
+    Context manager result: Task completed
     >>> asyncio.run(main(timeout=True))
     Task timed out
+    >>> asyncio.run(main(use_context_timeout=True))
+    Context managed task timed out
     >>> asyncio.run(main(cancel=True))
     Task was cancelled
     """
@@ -87,7 +106,7 @@ async def main(timeout: bool = False, cancel: bool = False) -> None:
             # Demonstrate explicit cancellation.
             task = asyncio.create_task(task_with_possible_delay(0.1))
             await asyncio.sleep(0.001)  # Let the task start
-            task.cancel()  # Explicitly cancel the task
+            task.cancel()
             await task
         elif timeout:
             # This will likely raise asyncio.TimeoutError due to the short timeout.
@@ -95,16 +114,28 @@ async def main(timeout: bool = False, cancel: bool = False) -> None:
                 task_with_possible_delay(0.002),
                 timeout=0.001,
             )
-            print(result)
+            print(f"Wait-for result: {result}")
+        elif use_context_timeout:
+            async with asyncio.timeout(0.001):
+                await task_with_possible_delay(0.002)
+            print("Context manager result: Task completed")
         else:
-            # This should complete successfully.
-            result = await asyncio.wait_for(
+            # Successful wait_for demonstration.
+            wait_for_result = await asyncio.wait_for(
                 task_with_possible_delay(0.001),
                 timeout=0.1,
             )
-            print(result)
+            print(f"Wait-for result: {wait_for_result}")
+
+            # Successful context manager demonstration.
+            async with asyncio.timeout(0.1):
+                context_result = await task_with_possible_delay(0.001)
+            print(f"Context manager result: {context_result}")
     except TimeoutError:
-        print("Task timed out")
+        if use_context_timeout:
+            print("Context managed task timed out")
+        else:
+            print("Task timed out")
     except asyncio.CancelledError:
         print("Task was cancelled")
 
@@ -115,6 +146,9 @@ if __name__ == "__main__":
 
     # Running with timeout scenario:
     asyncio.run(main(timeout=True))
+
+    # Running with timeout context scenario:
+    asyncio.run(main(use_context_timeout=True))
 
     # Running with cancellation scenario:
     asyncio.run(main(cancel=True))
