@@ -17,6 +17,8 @@ Summary
 - Show how multiple producers and consumers can run concurrently, feeding and
   draining the queue.
 - Understand how queues simplify synchronization in asynchronous workflows.
+- Connect back to `src/006_task_groups.py` for orchestrating producer and
+  consumer lifetimes with structured supervision.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-queue.html

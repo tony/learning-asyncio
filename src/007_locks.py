@@ -15,6 +15,8 @@ Summary
 - Show that multiple tasks incrementing a shared counter without a lock can cause
   race conditions.
 - Demonstrate how locking ensures consistent final values by serializing access.
+- Reference `src/006_task_groups.py` for supervising these workers with
+  structured concurrency.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Lock

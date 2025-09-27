@@ -2,7 +2,20 @@
 """
 Condition Variables for Complex Coordination.
 
-[... Same context and summary as before ...]
+Context
+-------
+`asyncio.Condition` supports more complex coordination patterns where consumers
+must wait for specific state changes. Producers notify the condition whenever
+work arrives so waiting tasks resume only when meaningful progress is possible.
+
+Summary
+-------
+- Use `asyncio.Condition` to wait for predicates while safely sharing state.
+- Combine producers and consumers that cooperate on a shared queue.
+- Demonstrate how condition variables avoid busy waiting and keep sequencing
+  predictable for doctests.
+- Point back to structured supervision (`src/006_task_groups.py`) for managing
+  the producer and consumer task lifecycles.
 
 Doctest Notes:
 - After this change, we ensure a stable output order: all items are produced

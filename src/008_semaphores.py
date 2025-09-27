@@ -16,6 +16,8 @@ Summary
 - Show how only a limited number of tasks can "enter" a critical section at once.
 - Help tune concurrency levels to achieve optimal performance without oversaturating
   resources.
+- Pair with the TaskGroup supervisor lesson (`src/006_task_groups.py`) to manage
+  worker lifetimes cleanly.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Semaphore
