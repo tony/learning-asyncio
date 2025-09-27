@@ -106,3 +106,76 @@ For advanced lessons (15-20), key CPython internals to reference:
 - Code style is enforced through extensive ruff rules including pydocstyle
 - When modifying lessons, ensure doctests still pass and output remains deterministic
 - Maintain educational value - each lesson should teach one concept clearly
+
+## Git Commit Standards
+
+### Commit Message Format
+```
+Component/File(commit-type[Subcomponent/method]): Concise description
+
+why: Explanation of necessity or impact.
+what:
+- Specific technical changes made
+- Focused on a single topic
+
+refs: #issue-number, breaking changes, or relevant links
+```
+
+### Common Commit Types
+- **feat**: New features or enhancements
+- **fix**: Bug fixes
+- **refactor**: Code restructuring without functional change
+- **docs**: Documentation updates
+- **chore**: Maintenance (dependencies, tooling, config)
+- **test**: Test-related updates
+- **style**: Code style and formatting
+
+### Dependencies Commit Format
+- Python packages: `py(deps): Package update`
+- Python dev packages: `py(deps[dev]): Dev package update`
+
+### Examples
+
+#### Feature Addition
+```
+src/022_file_io(feat[read_file_in_chunks]): Use thread pool for async file reading
+
+why: Current implementation blocks event loop on large files
+what:
+- Replace synchronous iteration with asyncio.to_thread()
+- Update docstring to match actual behavior
+- Add tests for concurrent file operations
+
+refs: #45
+```
+
+#### Bug Fix
+```
+src/012_streams(fix[run_server]): Support multiple concurrent connections
+
+why: Server exits after single connection, contradicting lesson goals
+what:
+- Keep server running until explicit shutdown
+- Add support for multiple simultaneous clients
+- Update docstring to clarify behavior
+
+refs: #38
+```
+
+#### Dependencies Update
+```
+py(deps[dev]): Bump pytest and pytest-asyncio
+
+why: Need latest async testing features
+what:
+- Update pytest to 8.0.0
+- Update pytest-asyncio to 0.23.0
+```
+
+### Guidelines
+- Subject line: Maximum 50 characters
+- Body lines: Maximum 72 characters
+- Use imperative mood ("Add", "Fix", not "Added", "Fixed")
+- One topic per commit
+- Separate subject from body with blank line
+- Mark breaking changes: `BREAKING:`
