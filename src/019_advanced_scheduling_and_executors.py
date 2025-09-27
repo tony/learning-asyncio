@@ -112,7 +112,7 @@ async def gather_service_statuses() -> list[str]:
             simulate_service("primary", 0.003),
             simulate_service("secondary", 0.002),
             simulate_service("tertiary", 0.001),
-        )
+        ),
     )
 
 
@@ -164,7 +164,7 @@ async def run_staggered_race(
     if _HAS_STAGGERED_RACE:
         awaitables = [factory() for factory in factory_list]
         staggered_race = cast(
-            Callable[..., Coroutine[Any, Any, str]],
+            "Callable[..., Coroutine[Any, Any, str]]",
             asyncio.staggered_race,  # type: ignore[attr-defined]
         )
         return await staggered_race(*awaitables, interval=interval)

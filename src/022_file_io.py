@@ -66,8 +66,7 @@ async def read_file_async(filepath: Path) -> str:
     Hello, async file I/O!
     """
     # to_thread runs the blocking operation in a thread pool
-    content = await asyncio.to_thread(filepath.read_text)
-    return content
+    return await asyncio.to_thread(filepath.read_text)
 
 
 async def write_file_async(filepath: Path, content: str) -> None:
@@ -93,7 +92,8 @@ async def write_file_async(filepath: Path, content: str) -> None:
 
 
 async def read_file_in_chunks(
-    filepath: Path, chunk_size: int = 1024
+    filepath: Path,
+    chunk_size: int = 1024,
 ) -> AsyncIterator[str]:
     r"""
     Read a file in chunks asynchronously.
@@ -138,7 +138,7 @@ async def read_file_in_chunks(
     """
 
     def read_chunks_sync() -> Iterator[str]:
-        with filepath.open() as f:
+        with filepath.open(encoding="utf-8") as f:
             while True:
                 chunk = f.read(chunk_size)
                 if not chunk:

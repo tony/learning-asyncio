@@ -29,7 +29,9 @@ import asyncio
 
 
 async def handle_client(
-    reader: asyncio.StreamReader, writer: asyncio.StreamWriter, verbose: bool = True
+    reader: asyncio.StreamReader,
+    writer: asyncio.StreamWriter,
+    verbose: bool = True,
 ) -> None:
     """
     Handle a single client connection.
@@ -82,7 +84,8 @@ async def run_server(host: str, port: int, verbose: bool = True) -> None:
     """
 
     async def handle_client_wrapper(
-        reader: asyncio.StreamReader, writer: asyncio.StreamWriter
+        reader: asyncio.StreamReader,
+        writer: asyncio.StreamWriter,
     ) -> None:
         await handle_client(reader, writer, verbose)
 
