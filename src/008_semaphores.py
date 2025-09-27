@@ -55,8 +55,9 @@ async def main() -> None:
     Run the main demonstration for this lesson.
 
     Creates several workers and uses a semaphore to ensure only two tasks run
-    concurrently. We use ellipses in the doctest to allow for variations in which
-    worker finishes first and in what order tasks complete.
+    concurrently while a TaskGroup supervises their lifecycle. We use ellipses
+    in the doctest to allow for variations in which worker finishes first and in
+    what order tasks complete.
 
     The general pattern is:
     - Two workers start working simultaneously.
@@ -74,8 +75,9 @@ async def main() -> None:
     Worker ... is done.
     """
     semaphore = asyncio.Semaphore(2)  # Limit concurrency to 2 tasks
-    tasks = [asyncio.create_task(limited_worker(semaphore, i)) for i in range(3)]
-    await asyncio.gather(*tasks)
+    async with asyncio.TaskGroup() as group:
+        for i in range(3):
+            group.create_task(limited_worker(semaphore, i))
 
 
 if __name__ == "__main__":

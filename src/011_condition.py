@@ -81,8 +81,8 @@ async def main() -> None:
 
     We create a shared queue protected by a condition. Two producers each produce
     two items (total of 4 items), and two consumers each consume two items.
-    Producers run first and finish producing all items.
-    After that, consumers start and consume all items.
+    Producers run first under a TaskGroup and finish producing all items.
+    After that, consumers start under their own TaskGroup and consume all items.
 
     This ensures the output order is:
     1. Four "Produced ..." lines
@@ -109,19 +109,15 @@ async def main() -> None:
     consumer_count = 2
     items_per_consumer = total_items // consumer_count
 
-    # Run all producers first
-    producers = [
-        asyncio.create_task(producer(shared, pid, items_per_producer))
-        for pid in range(producer_count)
-    ]
-    await asyncio.gather(*producers)
+    # Run all producers first under structured supervision.
+    async with asyncio.TaskGroup() as group:
+        for pid in range(producer_count):
+            group.create_task(producer(shared, pid, items_per_producer))
 
-    # After producers have finished, run consumers
-    consumers = [
-        asyncio.create_task(consumer(shared, cid, items_per_consumer))
-        for cid in range(consumer_count)
-    ]
-    await asyncio.gather(*consumers)
+    # After producers have finished, run consumers in their own TaskGroup.
+    async with asyncio.TaskGroup() as group:
+        for cid in range(consumer_count):
+            group.create_task(consumer(shared, cid, items_per_consumer))
 
 
 if __name__ == "__main__":

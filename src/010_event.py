@@ -66,8 +66,9 @@ async def main() -> None:
     Run the main demonstration for this lesson.
 
     Demonstrates event signaling by creating a waiter task that waits on an event,
-    and a setter task that sets the event after a delay. Once the event is set,
-    the waiter proceeds.
+    and a setter task that sets the event after a delay. A TaskGroup supervises
+    both coroutines so they start together, and once the event is set, the waiter
+    proceeds.
 
     Examples
     --------
@@ -78,11 +79,9 @@ async def main() -> None:
     """
     event = asyncio.Event()
 
-    waiter_task = asyncio.create_task(waiter(event))
-    setter_task = asyncio.create_task(setter(event))
-
-    # Wait for both tasks to complete
-    await asyncio.gather(waiter_task, setter_task)
+    async with asyncio.TaskGroup() as group:
+        group.create_task(waiter(event))
+        group.create_task(setter(event))
 
 
 if __name__ == "__main__":

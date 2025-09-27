@@ -66,9 +66,10 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Creates multiple producers and consumers. After all producers finish,
-    sends a sentinel (None) to signal consumers to stop. The output lines
-    may appear in various orders due to concurrency.
+    Creates multiple producers and consumers. A TaskGroup supervisor keeps the
+    producers, sentinel dispatcher, and consumers running together. After all
+    producers finish, sentinels (None) signal consumers to stop. The output
+    lines may appear in various orders due to concurrency.
 
     Examples
     --------
@@ -89,29 +90,28 @@ async def main() -> None:
     consumer_count = 2
     items_per_producer = 2
 
-    producers = [
-        asyncio.create_task(producer(queue, items_per_producer, pid))
-        for pid in range(producer_count)
-    ]
-    consumers = [
-        asyncio.create_task(consumer(queue, cid)) for cid in range(consumer_count)
-    ]
+    producers_done = asyncio.Event()
 
-    await asyncio.gather(*producers)
+    async def run_producers() -> None:
+        async with asyncio.TaskGroup() as group:
+            for pid in range(producer_count):
+                group.create_task(producer(queue, items_per_producer, pid))
+        producers_done.set()
 
-    # Signal consumers to stop
-    for _ in range(consumer_count):
-        await queue.put(None)
+    async def dispatch_sentinels() -> None:
+        await producers_done.wait()
+        for _ in range(consumer_count):
+            await queue.put(None)
 
-    await queue.join()
+    async def run_consumers() -> None:
+        async with asyncio.TaskGroup() as group:
+            for cid in range(consumer_count):
+                group.create_task(consumer(queue, cid))
 
-    # Cancel any consumer tasks if still running
-    # (they should have exited after sentinel)
-    for c in consumers:
-        if not c.done():
-            c.cancel()
-
-    await asyncio.gather(*consumers, return_exceptions=True)
+    async with asyncio.TaskGroup() as supervisor:
+        supervisor.create_task(run_producers())
+        supervisor.create_task(dispatch_sentinels())
+        supervisor.create_task(run_consumers())
 
 
 if __name__ == "__main__":
