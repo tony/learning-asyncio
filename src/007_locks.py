@@ -15,6 +15,8 @@ Summary
 - Show that multiple tasks incrementing a shared counter without a lock can cause
   race conditions.
 - Demonstrate how locking ensures consistent final values by serializing access.
+- Reference `src/006_task_groups.py` for supervising these workers with
+  structured concurrency.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Lock
@@ -72,9 +74,9 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Runs multiple workers that increment a shared counter. Using a lock ensures that
-    the final counter value matches the total expected increments (e.g., 2 workers
-    * 100 increments each = 200).
+    Runs multiple workers that increment a shared counter. A TaskGroup supervises
+    the workers, and using a lock ensures that the final counter value matches the
+    total expected increments (e.g., 2 workers * 100 increments each = 200).
 
     Examples
     --------
@@ -83,10 +85,9 @@ async def main() -> None:
     """
     resource = SharedResource()
     increments = 100
-    await asyncio.gather(
-        worker(resource, increments),
-        worker(resource, increments),
-    )
+    async with asyncio.TaskGroup() as group:
+        group.create_task(worker(resource, increments))
+        group.create_task(worker(resource, increments))
     print(resource.value)
 
 

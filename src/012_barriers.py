@@ -15,6 +15,8 @@ Summary
 - Introduce `asyncio.Barrier` for coordinated task synchronization.
 - Show how multiple tasks can run freely until they reach the barrier.
 - Once all tasks are waiting at the barrier, they proceed together.
+- Suggest combining barriers with structured supervisors from
+  `src/006_task_groups.py` to manage participating tasks.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Barrier
@@ -52,9 +54,9 @@ async def main() -> None:
     """
     Run the main demonstration for this lesson.
 
-    Creates a barrier for a fixed number of tasks and runs them. Each worker
-    waits at the barrier until all have arrived, ensuring they all reach this
-    synchronization point before proceeding.
+    Creates a barrier for a fixed number of tasks and runs them. A TaskGroup
+    supervises the workers as each waits at the barrier until all have arrived,
+    ensuring they all reach this synchronization point before proceeding.
 
     Examples
     --------
@@ -68,8 +70,9 @@ async def main() -> None:
     All workers have reached the barrier.
     """
     barrier = asyncio.Barrier(3)
-    tasks = [asyncio.create_task(worker(barrier, i)) for i in range(3)]
-    await asyncio.gather(*tasks)
+    async with asyncio.TaskGroup() as group:
+        for i in range(3):
+            group.create_task(worker(barrier, i))
     print("All workers have reached the barrier.")
 
 

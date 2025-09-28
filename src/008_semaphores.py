@@ -16,6 +16,8 @@ Summary
 - Show how only a limited number of tasks can "enter" a critical section at once.
 - Help tune concurrency levels to achieve optimal performance without oversaturating
   resources.
+- Pair with the TaskGroup supervisor lesson (`src/006_task_groups.py`) to manage
+  worker lifetimes cleanly.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Semaphore
@@ -53,8 +55,9 @@ async def main() -> None:
     Run the main demonstration for this lesson.
 
     Creates several workers and uses a semaphore to ensure only two tasks run
-    concurrently. We use ellipses in the doctest to allow for variations in which
-    worker finishes first and in what order tasks complete.
+    concurrently while a TaskGroup supervises their lifecycle. We use ellipses
+    in the doctest to allow for variations in which worker finishes first and in
+    what order tasks complete.
 
     The general pattern is:
     - Two workers start working simultaneously.
@@ -72,8 +75,9 @@ async def main() -> None:
     Worker ... is done.
     """
     semaphore = asyncio.Semaphore(2)  # Limit concurrency to 2 tasks
-    tasks = [asyncio.create_task(limited_worker(semaphore, i)) for i in range(3)]
-    await asyncio.gather(*tasks)
+    async with asyncio.TaskGroup() as group:
+        for i in range(3):
+            group.create_task(limited_worker(semaphore, i))
 
 
 if __name__ == "__main__":
