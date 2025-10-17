@@ -86,7 +86,7 @@ uv run mypy src/
 
 ## Requirements
 
-- Python 3.12 or higher
+- Python 3.14 or higher
 - No external dependencies for the lessons themselves
 - Development tools: pytest, ruff, mypy (installed via pip install -e .)
 

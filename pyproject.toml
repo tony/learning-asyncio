@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 license = { text = "All Rights Reserved" }
 readme = "README.md"
-requires-python = ">=3.12,<4.0"
+requires-python = ">=3.14,<4.0"
 authors = [
   {name = "Tony Narlock", email = "tony@git-pull.com"}
 ]
