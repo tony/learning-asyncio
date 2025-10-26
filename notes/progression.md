@@ -81,9 +81,9 @@ Below is a proposed lesson plan that reorganizes the existing lessons and sugges
     *New Lesson*  
     **Summary:** Explore how `asyncio.Task` objects are structured and tracked. Learn to inspect task states, debug hanging tasks, and use debugging tools such as `asyncio.all_tasks()` and logging to identify performance or deadlock issues.
 
-17. **Customizing the Event Loop**  
-    *New Lesson*  
-    **Summary:** Understand how to create a custom event loop or override the default loop policy. Integrate your event loop with other frameworks, or use alternate loop implementations (like `uvloop`) to boost performance.
+17. **Instrumenting Event Loops with Runner**  
+    *Based on `018_runner_loop_factory.py`*  
+    **Summary:** Replace deprecated policy hooks with `asyncio.Runner(loop_factory=...)`, enable debug instrumentation, and observe how task factories can capture every coroutine scheduled on the loop.
 
 18. **Advanced Scheduling and Executors**  
     *New Lesson*  
