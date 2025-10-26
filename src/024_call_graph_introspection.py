@@ -27,6 +27,9 @@ Doctest Notes
 - We trim the call stack to bare function names to keep doctest output stable.
 - The doctest asserts that both the call stack and awaited-by sections contain
   the expected coroutine names.
+- ``asyncio.capture_call_graph`` raises ``RuntimeError`` if invoked outside a
+  running loop or without a target future, so every example keeps the call
+  inside an active ``TaskGroup``.
 """
 
 from __future__ import annotations

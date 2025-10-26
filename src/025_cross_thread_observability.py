@@ -13,8 +13,9 @@ Summary
 - Spawn a background thread that schedules named tasks onto the running loop.
 - Keep the main loop busy with its own tasks so the inspector shows both
   sources.
-- Use ``asyncio.tools.build_async_tree`` to render a normalised tree without
-  volatile memory addresses.
+- Use ``asyncio.tools.build_async_tree`` with emoji decorators (mirroring
+  ``python -m asyncio pstree``) to render a normalised tree without volatile
+  memory addresses.
 
 Official Documentation
 ----------------------
@@ -25,6 +26,9 @@ Doctest Notes
 -------------
 - The doctest ensures the rendered tree contains both the main-loop and
   thread-loop tasks, verifying cross-thread visibility.
+- Emoji prefixes from ``build_async_tree`` are preserved so the output matches
+  the ``python -m asyncio pstree`` CLI format while still making substring
+  assertions.
 """
 
 from __future__ import annotations
@@ -36,10 +40,19 @@ from asyncio import tools as asyncio_tools
 from collections.abc import Sequence
 
 
-def _capture_tree(pid: int) -> list[str]:
-    """Return the pretty-printed await tree for *pid*."""
+def _capture_tree(
+    pid: int,
+    *,
+    task_flag: str = "🧵",
+    coroutine_flag: str = "🔁",
+) -> list[str]:
+    """Return the emoji-prefixed await tree for *pid*."""
     awaited = asyncio_tools.get_all_awaited_by(pid)
-    trees = asyncio_tools.build_async_tree(awaited)
+    trees = asyncio_tools.build_async_tree(
+        awaited,
+        task_emoji=task_flag,
+        cor_emoji=coroutine_flag,
+    )
     # ``build_async_tree`` returns one list per root; we flatten to a simple list.
     return [line for tree in trees for line in tree]
 
@@ -62,9 +75,12 @@ async def demonstrate_concept() -> Sequence[str]:
     async def main_worker(name: str) -> None:
         await release_gate.wait()
 
+    thread_created: list[asyncio.Task[None]] = []
+
     def submit_thread_jobs() -> None:
         def schedule(name: str) -> None:
-            loop.create_task(main_worker(name), name=name)
+            task = loop.create_task(main_worker(name), name=name)
+            thread_created.append(task)
 
         for idx in range(2):
             job_name = f"thread-job-{idx}"
@@ -86,6 +102,8 @@ async def demonstrate_concept() -> Sequence[str]:
         await asyncio.sleep(0.001)
         tree_lines = await asyncio.to_thread(_capture_tree, os.getpid())
         release_gate.set()
+        if thread_created:
+            await asyncio.gather(*thread_created)
 
     thread.join()
 

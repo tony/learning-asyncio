@@ -17,6 +17,8 @@ Summary
   ``asyncio.tools.build_task_table`` to capture a structured task table.
 - Normalise volatile fields (thread IDs, memory addresses) while preserving the
   await stacks that matter for debugging.
+- Show how to inspect *any* PID (just like ``python -m asyncio ps``) while still
+  keeping doctests deterministic.
 
 Official Documentation
 ----------------------
@@ -86,8 +88,8 @@ def _snapshot_task_table(pid: int) -> list[TaskRow]:
     return normalised
 
 
-async def demonstrate_concept() -> Sequence[TaskRow]:
-    """Capture a live task table for the current process.
+async def demonstrate_concept(pid: int | None = None) -> Sequence[TaskRow]:
+    """Capture a live task table for *pid* (defaults to this process).
 
     Examples
     --------
@@ -100,7 +102,11 @@ async def demonstrate_concept() -> Sequence[TaskRow]:
     ...     if row.task_name.startswith("job-")
     ... )
     True
+    >>> explicit = asyncio.run(demonstrate_concept(pid=os.getpid()))
+    >>> len(explicit) == len(rows)
+    True
     """
+    target_pid = pid if pid is not None else os.getpid()
     release_gate = asyncio.Event()
 
     async def worker(idx: int) -> str:
@@ -112,7 +118,7 @@ async def demonstrate_concept() -> Sequence[TaskRow]:
             tg.create_task(worker(idx), name=f"job-{idx}")
 
         await asyncio.sleep(0.001)
-        rows = await asyncio.to_thread(_snapshot_task_table, os.getpid())
+        rows = await asyncio.to_thread(_snapshot_task_table, target_pid)
         release_gate.set()
 
     return rows
