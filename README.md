@@ -1,6 +1,6 @@
 # Learning Asyncio 🚀
 
-A friendly, hands-on tutorial series for mastering Python's asyncio library through 20 progressive lessons.
+A friendly, hands-on tutorial series for mastering Python's asyncio library through 25 progressive lessons.
 
 ## What is this?
 
@@ -44,14 +44,15 @@ Learn to coordinate async tasks safely.
 - **Lesson 10**: Conditions - complex coordination
 - **Lesson 11**: Barriers - synchronizing task groups
 
-### 🌐 Part III: Real-World I/O (Lessons 12-14)
+### 🌐 Part III: Real-World I/O (Lessons 12-14, 22)
 Connect to the outside world asynchronously.
 
 - **Lesson 12**: Network streams and protocols
 - **Lesson 13**: Running subprocesses
 - **Lesson 14**: Timeouts and cancellation
+- **Lesson 22**: Asynchronous file I/O patterns
 
-### 🔬 Part IV: Advanced Topics (Lessons 15-20)
+### 🔬 Part IV: Event Loop Internals (Lessons 15-21)
 Deep dive into asyncio internals.
 
 - **Lesson 15**: How the event loop works
@@ -59,7 +60,15 @@ Deep dive into asyncio internals.
 - **Lesson 17**: Custom event loops
 - **Lesson 18**: Thread executors and scheduling
 - **Lesson 19**: Low-level I/O primitives
-- **Lesson 20**: Performance profiling and optimization
+- **Lesson 20**: Selectors, transports, and protocols
+- **Lesson 21**: Performance profiling and optimization
+
+### 🛰️ Part V: Observability & Diagnostics (Lessons 23-25)
+Leverage Python 3.14's new tooling to understand running async systems.
+
+- **Lesson 23**: Inspect running tasks with ``asyncio.tools``
+- **Lesson 24**: Capture async call graphs programmatically
+- **Lesson 25**: Observe tasks across threads and loops
 
 ## Learning Approach
 
