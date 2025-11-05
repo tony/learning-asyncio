@@ -114,6 +114,28 @@ This tutorial series believes in:
 - **Fast feedback** - Tests run quickly (0.001s delays)
 - **Clear progression** - Each lesson teaches one concept well
 
+## Notes
+
+There are doctests generated based on CPython's `asyncio` module. You can access
+them directly via [uvx] / [pipx] ([gp-libs] is required to parse doctest from
+markdown):
+
+uvx:
+
+```sh
+uvx --from gp-libs python -m doctest_docutils notes/libs/cpython-asyncio-doctest.md -v
+```
+
+pipx:
+
+```
+pipx run --spec gp-libs -- python -m doctest_docutils notes/libs/cpython-asyncio-doctest.md -v'
+```
+
+[uvx]: https://docs.astral.sh/uv/guides/tools/
+[pipx]: https://pipx.pypa.io/stable/examples/
+[gp-libs]: https://github.com/git-pull/gp-libs
+
 ## Contributing
 
 Found an issue or have a suggestion? Feel free to open an issue or submit a PR!
