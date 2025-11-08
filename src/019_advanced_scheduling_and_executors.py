@@ -44,7 +44,7 @@ Doctest Notes:
 - Output order may vary slightly, so we use ellipses to allow flexibility.
 - Scheduling comparisons keep delays tiny to maintain fast doctests.
 - The staggered race example falls back to a compatibility helper if
-  `asyncio.staggered_race` is unavailable (e.g., Python 3.13).
+  `asyncio.staggered` module is unavailable (e.g., Python < 3.8).
 
 """
 
@@ -53,9 +53,9 @@ import concurrent.futures
 import multiprocessing
 from collections.abc import Callable, Coroutine, Iterable
 from functools import partial
-from typing import Any, cast
+from typing import Any
 
-_HAS_STAGGERED_RACE = hasattr(asyncio, "staggered_race")
+_HAS_STAGGERED_MODULE = hasattr(asyncio, "staggered")
 
 
 def cpu_bound_fib(n: int) -> int:
@@ -143,8 +143,8 @@ async def run_staggered_race(
 ) -> str:
     """Return the first successful result from staggered service attempts.
 
-    Falls back to a compatibility helper when ``asyncio.staggered_race`` is not
-    yet available (e.g., Python 3.13).
+    Falls back to a compatibility helper when ``asyncio.staggered`` module is not
+    yet available (e.g., Python < 3.8).
 
     Examples
     --------
@@ -161,13 +161,20 @@ async def run_staggered_race(
     if not factory_list:
         message = "staggered race requires at least one candidate"
         raise ValueError(message)
-    if _HAS_STAGGERED_RACE:
-        awaitables = [factory() for factory in factory_list]
-        staggered_race = cast(
-            "Callable[..., Coroutine[Any, Any, str]]",
-            asyncio.staggered_race,  # type: ignore[attr-defined]
+    if _HAS_STAGGERED_MODULE:
+        from asyncio.staggered import staggered_race as stdlib_staggered_race
+
+        winner, index, exceptions = await stdlib_staggered_race(
+            factory_list,
+            delay=interval,
         )
-        return await staggered_race(*awaitables, interval=interval)
+        if index is not None:
+            # staggered_race returns the winning coroutine's result
+            assert isinstance(winner, str)
+            return winner
+        # All tasks failed, raise an error with the exceptions
+        message = "All staggered tasks failed"
+        raise RuntimeError(message) from exceptions[0] if exceptions else None
     return await _fallback_staggered_race(factory_list, interval=interval)
 
 
