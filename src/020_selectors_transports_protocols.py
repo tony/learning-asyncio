@@ -140,7 +140,7 @@ async def main() -> None:
     server = await loop.create_server(
         EchoServerProtocol,
         "127.0.0.1",
-        0,  # 0 means pick an abitrary free port
+        0,  # 0 means pick an arbitrary free port
     )
 
     server_address = server.sockets[0].getsockname()
