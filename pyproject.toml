@@ -74,12 +74,18 @@ convention = "numpy"
   "T201"  # print() statements are used for doctest and normal outputs
 ]
 
-[tool.pytest.ini_options]
-addopts = "--tb=short --no-header --showlocals --doctest-modules"
-doctest_optionflags = "ELLIPSIS NORMALIZE_WHITESPACE"
-testpaths = [
-  "src",
+[tool.pytest]
+minversion = "9.0"
+strict = true
+faulthandler_exit_on_timeout = true
+addopts = [
+  "--tb=short",
+  "--no-header",
+  "--showlocals",
+  "--doctest-modules",
 ]
+doctest_optionflags = ["ELLIPSIS", "NORMALIZE_WHITESPACE"]
+testpaths = ["src"]
 
 [tool.pytest-watcher]
 now = true
