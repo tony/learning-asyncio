@@ -117,8 +117,6 @@ why: Explanation of necessity or impact.
 what:
 - Specific technical changes made
 - Focused on a single topic
-
-refs: #issue-number, breaking changes, or relevant links
 ```
 
 ### Common Commit Types
@@ -145,8 +143,6 @@ what:
 - Replace synchronous iteration with asyncio.to_thread()
 - Update docstring to match actual behavior
 - Add tests for concurrent file operations
-
-refs: #45
 ```
 
 #### Bug Fix
@@ -158,8 +154,6 @@ what:
 - Keep server running until explicit shutdown
 - Add support for multiple simultaneous clients
 - Update docstring to clarify behavior
-
-refs: #38
 ```
 
 #### Dependencies Update
