@@ -16,7 +16,7 @@ Summary
 - Show how multiple tasks can run freely until they reach the barrier.
 - Once all tasks are waiting at the barrier, they proceed together.
 - Suggest combining barriers with structured supervisors from
-  `src/006_task_groups.py` to manage participating tasks.
+  `src/007_task_groups.py` to manage participating tasks.
 
 Official Documentation:
 - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Barrier

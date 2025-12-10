@@ -14,7 +14,7 @@ Summary
 - Combine producers and consumers that cooperate on a shared queue.
 - Demonstrate how condition variables avoid busy waiting and keep sequencing
   predictable for doctests.
-- Point back to structured supervision (`src/006_task_groups.py`) for managing
+- Point back to structured supervision (`src/007_task_groups.py`) for managing
   the producer and consumer task lifecycles.
 
 Doctest Notes:

@@ -11,7 +11,7 @@ file operations and implementing streaming patterns for large files.
 
 Prerequisites: Understanding of async/await, asyncio.run(), and basic file operations.
 This lesson builds on the concurrency concepts from lessons 1-5 and the I/O patterns
-introduced in lesson 12 (streams).
+introduced in lesson 14 (streams).
 
 Summary
 -------

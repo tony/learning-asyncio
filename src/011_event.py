@@ -18,7 +18,7 @@ Summary
   "waking" the waiting task.
 - Demonstrate a simple event-driven workflow where the timing and order of
   tasks are controlled by events.
-- Highlight that structured supervisors (see `src/006_task_groups.py`) can
+- Highlight that structured supervisors (see `src/007_task_groups.py`) can
   coordinate setters and waiters alongside event signaling.
 
 Official Documentation:
