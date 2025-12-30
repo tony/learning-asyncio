@@ -73,6 +73,37 @@ Each lesson strictly follows the template in `notes/lesson_template.py` with the
 - No separate test directory - lessons are both educational content and tests
 - Use `# doctest: +ELLIPSIS` for non-deterministic output (concurrency)
 
+### Doctests
+
+**All functions and methods MUST have working doctests.** Doctests serve as both documentation and tests.
+
+**CRITICAL RULES:**
+- Doctests MUST actually execute - never comment out `asyncio.run()` or similar calls
+- Doctests MUST NOT be converted to `.. code-block::` as a workaround (code-blocks don't run)
+- If you cannot create a working doctest, **STOP and ask for help**
+
+**Available tools for doctests:**
+- Ellipsis for variable output: `# doctest: +ELLIPSIS`
+- Minimal delays (0.001s) for async timing
+
+**`# doctest: +SKIP` is NOT permitted** - it's just another workaround that doesn't test anything.
+
+**Async doctest pattern:**
+```python
+>>> import asyncio
+>>> async def example():
+...     await asyncio.sleep(0.001)
+...     return "result"
+>>> asyncio.run(example())
+'result'
+```
+
+**When concurrency order varies, use ellipsis:**
+```python
+>>> asyncio.run(concurrent_demo())  # doctest: +ELLIPSIS
+'Task ... completed'
+```
+
 ## Known Issues (from recommendations.md)
 
 ### File Naming
