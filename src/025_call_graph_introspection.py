@@ -40,7 +40,18 @@ from typing import Any, NamedTuple
 
 
 class GraphSummary(NamedTuple):
-    """Structured summary of an async call graph."""
+    """Structured summary of an async call graph.
+
+    Attributes
+    ----------
+    frames : list[str]
+        Code name of each frame in the captured call stack, outermost
+        first.
+    awaited_by_frames : list[str]
+        One entry per future awaiting this one, naming the innermost
+        frame of that awaiter's stack, or the future's class name when
+        the awaiter has no stack to report.
+    """
 
     frames: list[str]
     awaited_by_frames: list[str]
