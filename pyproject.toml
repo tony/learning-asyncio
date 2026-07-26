@@ -76,6 +76,9 @@ convention = "numpy"
 "*.py" = [
   "T201"  # print() statements are used for doctest and normal outputs
 ]
+# `blocking_worker` calls `time.sleep()` from an `async def` on purpose: the
+# lesson counts the heartbeat ticks the event loop misses while it blocks.
+"src/006_blocking_calls.py" = ["ASYNC251"]
 
 [tool.pytest]
 minversion = "9.0"
