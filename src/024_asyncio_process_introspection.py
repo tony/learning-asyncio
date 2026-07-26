@@ -44,7 +44,20 @@ from typing import NamedTuple
 
 
 class TaskRow(NamedTuple):
-    """A normalised snapshot of a task row."""
+    """A normalised snapshot of a task row.
+
+    Attributes
+    ----------
+    task_name : str
+        Name the task carries in the task table.
+    coroutine_stack : str
+        Frames the task is suspended in, whitespace collapsed onto one
+        line, or ``"<idle>"`` when the table reports no stack.
+    awaiter_name : str
+        Chain of awaiters waiting on the task, whitespace collapsed onto
+        one line. Falls back to the single awaiter's name, then to
+        ``"<none>"`` when nothing awaits it.
+    """
 
     task_name: str
     coroutine_stack: str
