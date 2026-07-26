@@ -73,6 +73,29 @@ Each lesson strictly follows the template in `notes/lesson_template.py` with the
 - No separate test directory - lessons are both educational content and tests
 - Use `# doctest: +ELLIPSIS` for non-deterministic output (concurrency)
 
+### Classes with fields
+
+**Classes with fields** — `NamedTuple`, dataclasses — document every field in
+an `Attributes` section:
+
+```python
+class TaskRow(NamedTuple):
+    """One row of the task introspection table.
+
+    Attributes
+    ----------
+    task_name : str
+        Name the task was created with.
+    coroutine_stack : str
+        Frames the task is currently suspended in.
+    """
+```
+
+A type says how a field is shaped, not what it holds. Describing each one
+keeps that meaning next to the code, and anything that renders the class —
+autodoc, a REPL, an editor tooltip — has a description to show instead of a
+bare name.
+
 ### Doctests
 
 **All functions and methods MUST have working doctests.** Doctests serve as both documentation and tests.
