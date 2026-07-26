@@ -79,6 +79,11 @@ convention = "numpy"
 # `blocking_worker` calls `time.sleep()` from an `async def` on purpose: the
 # lesson counts the heartbeat ticks the event loop misses while it blocks.
 "src/006_blocking_calls.py" = ["ASYNC251"]
+# `_fallback_staggered_race` must treat any candidate failure as "start the
+# next one", the contract `asyncio.staggered.staggered_race` implements by
+# capturing `BaseException` per candidate. The factories are caller-supplied,
+# so there is no narrower type to catch.
+"src/020_advanced_scheduling_and_executors.py" = ["BLE001"]
 
 [tool.pytest]
 minversion = "9.0"
