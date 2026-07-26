@@ -191,6 +191,7 @@ async def _fallback_staggered_race(
             await asyncio.sleep(interval)
 
     pending: set[asyncio.Task[str]] = set(tasks)
+    failures: list[BaseException] = []
     try:
         while pending:
             done, pending = await asyncio.wait(
@@ -200,14 +201,15 @@ async def _fallback_staggered_race(
             for task in done:
                 try:
                     result = task.result()
-                except Exception:
+                except Exception as exc:
+                    failures.append(exc)
                     continue
                 for pending_task in pending:
                     pending_task.cancel()
                 await asyncio.gather(*pending, return_exceptions=True)
                 return result
         message = "All staggered tasks failed"
-        raise RuntimeError(message)
+        raise RuntimeError(message) from (failures[0] if failures else None)
     finally:
         for task in tasks:
             if not task.done():

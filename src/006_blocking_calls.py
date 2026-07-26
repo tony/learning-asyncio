@@ -52,6 +52,7 @@ import contextlib
 import time
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
+from typing import Self
 
 # =============================================================================
 # PART 1: Core Demonstration (Deterministic Tick-Counting)
@@ -491,7 +492,7 @@ class BlockingDetector:
         """Set the flag when scheduled by the event loop."""
         self.canary_ran = True
 
-    async def __aenter__(self) -> BlockingDetector:
+    async def __aenter__(self) -> Self:
         """Create the canary task (but don't yield yet)."""
         self._task = asyncio.create_task(self._canary())
         return self
