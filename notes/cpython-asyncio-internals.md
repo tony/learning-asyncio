@@ -1,6 +1,6 @@
 # CPython Asyncio Internals Reference
 
-Source files and concepts backing lessons 15-20, which move from the
+Source files and concepts backing lessons 17-22, which move from the
 public `asyncio` API into the event loop's own implementation.
 
 ## Core files in CPython

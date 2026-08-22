@@ -16,7 +16,7 @@ what was asked for.
 | `notes/progression.md` | The curriculum plan the lessons were built against. |
 | `notes/recommendations.md` | Content-balance review notes. |
 | `notes/libs/cpython-asyncio-doctest.md` | Doctest patterns from CPython; run by hand via `gp-libs`, not by pytest. |
-| `notes/cpython-asyncio-internals.md` | CPython source files and concepts backing lessons 15-20. |
+| `notes/cpython-asyncio-internals.md` | CPython source files and concepts backing lessons 17-22. |
 | `.github/workflows/tests.yml` | CI: ruff, mypy, pytest. |
 | `README.md` | Lesson map and quick start. |
 
