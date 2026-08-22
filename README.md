@@ -76,7 +76,9 @@ $ uv run pytest
 
 ### Part V: Observability & Diagnostics (Lessons 24-26)
 
-Built on `asyncio.tools`, added in Python 3.14.
+Built on introspection added in Python 3.14: `asyncio.tools` (lessons 24
+and 26) and the top-level `asyncio.capture_call_graph` /
+`asyncio.print_call_graph` (lesson 25).
 
 - **Lesson 24**: Inspect running tasks with `asyncio.tools`
 - **Lesson 25**: Capture async call graphs programmatically
