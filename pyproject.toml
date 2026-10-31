@@ -16,7 +16,7 @@ dev = [
   "pytest-rerunfailures",
   "pytest-watcher",
     # Lint
-  "ruff>=0.17.1",
+  "ruff>=0.17.3",
   "mypy",
   "typing-extensions",
 ]
