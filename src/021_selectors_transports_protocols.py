@@ -51,7 +51,8 @@ Official Documentation:
 
 Doctest Notes:
 - We'll start a small echo server protocol and then connect to it with a client.
-- Output order may vary slightly, so we'll use ellipses in doctests.
+- The client sends after the server reports the connection, so the output order
+  is fixed; ellipses cover the port numbers.
 - The example focuses on conceptual clarity rather than robust error handling.
 
 """
@@ -63,12 +64,16 @@ from typing import cast
 class EchoServerProtocol(asyncio.Protocol):
     """Protocol implementation for an echo server."""
 
+    def __init__(self, on_connected: asyncio.Future[None]) -> None:
+        self.on_connected = on_connected
+
     def connection_made(self, transport: asyncio.BaseTransport) -> None:
         """Handle new client connection."""
         # Cast transport to WriteTransport so .write() is recognized
         self.transport = cast("asyncio.WriteTransport", transport)
         peername = self.transport.get_extra_info("peername")
         print(f"Connection made from {peername}")
+        self.on_connected.set_result(None)
 
     def data_received(self, data: bytes) -> None:
         """Handle data received from the client."""
@@ -94,6 +99,9 @@ class EchoClientProtocol(asyncio.Protocol):
         """Handle connection establishment."""
         # Store transport for closing later, cast to Transport to satisfy mypy
         self.transport = cast("asyncio.Transport", transport)
+
+    def send(self) -> None:
+        """Send the message once the server has accepted the connection."""
         wtransport = cast("asyncio.WriteTransport", self.transport)
         print("Client connection made, sending message...")
         wtransport.write(self.message.encode())
@@ -137,8 +145,9 @@ async def main() -> None:
     """
     loop = asyncio.get_running_loop()
 
+    on_connected: asyncio.Future[None] = loop.create_future()
     server = await loop.create_server(
-        EchoServerProtocol,
+        lambda: EchoServerProtocol(on_connected),
         "127.0.0.1",
         0,  # 0 means pick an arbitrary free port
     )
@@ -150,11 +159,14 @@ async def main() -> None:
     message = "Hello, Protocol!"
 
     # Create a client connection using a protocol
-    await loop.create_connection(
+    _, client = await loop.create_connection(
         lambda: EchoClientProtocol(message, on_con_lost),
         "127.0.0.1",
         server_address[1],
     )
+
+    await on_connected
+    client.send()
 
     await on_con_lost
 
